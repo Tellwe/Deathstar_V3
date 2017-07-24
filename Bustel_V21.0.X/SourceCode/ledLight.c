@@ -1,21 +1,42 @@
 #include "ledLight.h"
 //Driver for the Light LED
 
-//struct myClock_type *localClock;
-//lightLength_type localLightLength = OFF;
+struct MyClocks *localClockPtr;
+int ledLength = 0;
 
-//int configLedLight(struct myClock_type *clock) 
-int configLedLight(int clock) 
+//void ledLightConfig(struct MyClocks *clockPtr, lightLength_type lightLength)
+void ledLightConfig(lightLength_type lightLength)
 {
-	int localClock = clock;
-
-	//lightLength_type localLightLength = lightLength;
-
-	return 0;
-
+	//localClockPtr = clockPtr;
+	lightLength_type localLightLength = lightLength;
+	
+	switch (localLightLength) {
+		case OFF:
+			ledLength = 0;
+			break;
+		case MINUTES2:
+			ledLength = 2;
+			break;
+		case MINUTES3:
+			ledLength = 3;
+			break;
+		case MINUTES5:
+			ledLength = 5;
+			break;
+		case MINUTES10:
+			ledLength = 10;
+			break;
+		default:
+			ledLength = 0;
+			break;
+	}
+	//return 0;
 }
 
 int ledLightStart(){
+	
+
+
 	return 0;
 }
 

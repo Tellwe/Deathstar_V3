@@ -3,13 +3,6 @@
 #include <time.h>
 #include <stdio.h>
 
-//Drivers
-/*#include "button.h"
-#include "ledBlink.h"
-#include "ledLight.h"
-#include "duskGuard.h"
-#include "motionSensor.h"
-*/
 //Configuration
 #include "configHW.h"
 
@@ -18,6 +11,14 @@
 
 //Global variables
 #include "globals.h"
+//Drivers
+//#include "button.h"
+//#include "ledBlink.h"
+#include "ledLight.h"
+//#include "duskGuard.h"
+//#include "motionSensor.h"
+
+
 
 
 /**********************		Description		*************************************** 					
@@ -27,12 +28,6 @@
 
 //*************************************************************************************
 
-
-
-
-
-
-
 void main(){
 
 	//Initiate clock
@@ -41,7 +36,9 @@ void main(){
 	internalClock.minute = 0;
 
 	initialConfigurationP16F887();
+	lightLength_type var = MINUTES2;
 
+	ledLightConfig(var);
 
 
 
@@ -89,6 +86,7 @@ void interrupt tc_int(void){
 		{
 			internalClock.halfSecond = 0;
 			internalClock.second++;
+			seconds++;
 		}
 		if(internalClock.second >=60)
 		{

@@ -7,7 +7,7 @@
 
 
 //Configuration variables for the driver
-/*typedef enum 
+typedef enum 
 { 
 	OFF = 0,
 	MINUTES2, 
@@ -15,11 +15,12 @@
 	MINUTES5, 
 	MINUTES10
 } lightLength_type;
-*/
+
 
 
 //Functions for the driver
-int configLedLight(int );
+//void ledLightConfig(struct MyClocks *clockPtr, lightLength_type lightLength);
+void ledLightConfig(lightLength_type lightLength);
 int ledLightStart();
 int ledLightOff();
 

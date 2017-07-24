@@ -10,6 +10,8 @@ struct MyClocks{
 
 struct MyClocks internalClock;
 
+unsigned int seconds = 0;
+
 
 
 #endif
