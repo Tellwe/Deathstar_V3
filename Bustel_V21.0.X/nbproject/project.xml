@@ -6,9 +6,9 @@
             <name>Bustel_V21.0</name>
             <creation-uuid>0b90261e-24d8-4572-ab2d-8ca9fba30ed9</creation-uuid>
             <make-project-type>0</make-project-type>
-            <c-extensions/>
+            <c-extensions>c</c-extensions>
             <cpp-extensions/>
-            <header-extensions/>
+            <header-extensions>h</header-extensions>
             <asminc-extensions/>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
