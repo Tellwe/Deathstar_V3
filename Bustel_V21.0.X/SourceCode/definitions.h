@@ -1,5 +1,6 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
+#include <xc.h>
 
 //File containing all the abbreviations used in the project
 
@@ -13,6 +14,6 @@
 
 //Map towards HW registers from xc.h
 //LED Light output
-#define outLedLight			RC2
+#define ledLightSignal			RC2
 
 #endif

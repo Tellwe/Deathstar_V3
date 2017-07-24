@@ -36,15 +36,18 @@ void main(){
 	internalClock.minute = 0;
 
 	initialConfigurationP16F887();
-	lightLength_type var = MINUTES2;
 
-	ledLightConfig(var);
-
+	ledLightConfig(&seconds, (lightLength_type) MINUTES2);
 
 
 
-	while(1){
 
+	while(1)
+	{
+		ledUpdate();
+
+		if(seconds == 10)
+			ledLightStart();
 
 	}
 
