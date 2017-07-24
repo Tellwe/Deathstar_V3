@@ -28,13 +28,7 @@
 //*************************************************************************************
 
 
-struct MyClocks{
-	int halfSecond;
-	int second;
-	int minute;
-};
 
-struct MyClocks internalClock;
 
 
 
