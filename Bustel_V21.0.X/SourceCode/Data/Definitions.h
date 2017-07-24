@@ -1,0 +1,1 @@
+//File containing all the abbreviations used in the project
