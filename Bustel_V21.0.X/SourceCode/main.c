@@ -10,7 +10,7 @@
 #include "motionSensor.h"
 
 //Configuration
-#include "config.h"
+#include "configHW.h"
 
 //Abbreviations
 #include "definitions.h"
@@ -25,7 +25,7 @@
 
 
 void main(){
-	
+
 
 }
 

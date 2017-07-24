@@ -4,16 +4,18 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>SourceCode/Drivers/Battery/Battery.h</itemPath>
-      <itemPath>SourceCode/Drivers/Button/Button.h</itemPath>
-      <itemPath>SourceCode/Drivers/DuskGuard/DuskGuard.h</itemPath>
-      <itemPath>SourceCode/Drivers/Flash/Flash.h</itemPath>
-      <itemPath>SourceCode/Drivers/LEDBlink/LEDBlink.h</itemPath>
-      <itemPath>SourceCode/Drivers/LEDLight/LEDLight.h</itemPath>
-      <itemPath>SourceCode/Drivers/MotionSensor/MotionSensor.h</itemPath>
-      <itemPath>SourceCode/Drivers/RTC/RTC.h</itemPath>
-      <itemPath>SourceCode/Drivers/SolarPanel/SolarPanel.h</itemPath>
-      <itemPath>SourceCode/Drivers/Transceiver/Transceiver.h</itemPath>
+      <itemPath>SourceCode/battery.h</itemPath>
+      <itemPath>SourceCode/button.h</itemPath>
+      <itemPath>SourceCode/configHW.h</itemPath>
+      <itemPath>SourceCode/definitions.h</itemPath>
+      <itemPath>SourceCode/duskGuard.h</itemPath>
+      <itemPath>SourceCode/flash.h</itemPath>
+      <itemPath>SourceCode/ledBlink.h</itemPath>
+      <itemPath>SourceCode/ledLight.h</itemPath>
+      <itemPath>SourceCode/motionSensor.h</itemPath>
+      <itemPath>SourceCode/rtc.h</itemPath>
+      <itemPath>SourceCode/solarPanel.h</itemPath>
+      <itemPath>SourceCode/transceiver.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -22,7 +24,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>SourceCode/Main/Main.c</itemPath>
+      <itemPath>SourceCode/main.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -31,17 +33,7 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>SourceCode/Main</Elem>
-    <Elem>SourceCode/Drivers/Battery</Elem>
-    <Elem>SourceCode/Drivers/Button</Elem>
-    <Elem>SourceCode/Drivers/DuskGuard</Elem>
-    <Elem>SourceCode/Drivers/Flash</Elem>
-    <Elem>SourceCode/Drivers/LEDBlink</Elem>
-    <Elem>SourceCode/Drivers/LEDLight</Elem>
-    <Elem>SourceCode/Drivers/MotionSensor</Elem>
-    <Elem>SourceCode/Drivers/RTC</Elem>
-    <Elem>SourceCode/Drivers/SolarPanel</Elem>
-    <Elem>SourceCode/Drivers/Transceiver</Elem>
+    <Elem>SourceCode</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
