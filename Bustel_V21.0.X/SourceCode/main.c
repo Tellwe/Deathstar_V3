@@ -1,14 +1,15 @@
 //Includes
-//Processor and compiler dependant
 #include <xc.h>
+#include <time.h>
+#include <stdio.h>
 
 //Drivers
-#include "button.h"
+/*#include "button.h"
 #include "ledBlink.h"
 #include "ledLight.h"
 #include "duskGuard.h"
 #include "motionSensor.h"
-
+*/
 //Configuration
 #include "configHW.h"
 
@@ -27,6 +28,17 @@
 //*************************************************************************************
 
 
+struct MyClocks{
+	int halfSecond;
+	int second;
+	int minute;
+};
+
+struct MyClocks internalClock;
+
+
+
+
 void main(){
 
 	//Initiate clock
@@ -34,8 +46,14 @@ void main(){
 	internalClock.second = 0;
 	internalClock.minute = 0;
 
+	initialConfigurationP16F887();
+
+
+
+
 
 	while(1){
+
 
 	}
 
@@ -60,7 +78,6 @@ void main(){
  ********************************************************************/
 
 void interrupt tc_int(void){
-
 	//Check if interrupt on timer overflow
 	if(TMR1IF == 1){
 		//Stop timer
@@ -69,6 +86,8 @@ void interrupt tc_int(void){
 		TMR1H = 0x0B;
 		TMR1L = 0xDB;
 		
+		//Tick
+		//unsigned long begin = clock();
 
 		//Count  of the counter counting seconds for the application
 		internalClock.halfSecond++;
@@ -88,7 +107,12 @@ void interrupt tc_int(void){
 		}
 
 		//Start Timer again
-		TMR1ON = 1;	
+		TMR1ON = 1;
+
+		//tock
+//		unsigned long end = clock();
+//		double time_spent = (double) (end-begin) / CLOCKS_PER_SEC;
+ 
 	}
 	TMR1IF = 0;			//Re-enable timer1-interrupt
 	RBIF = 0;			//Re-enable interrupt-on-change for PORTB

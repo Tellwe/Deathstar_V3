@@ -1,4 +1,5 @@
-
+//Processor and compiler dependant
+#include <xc.h>
 
 void initialConfigurationP16F887(){
 
@@ -46,7 +47,7 @@ void initialConfigurationP16F887(){
     SSPSTATbits.SMP=0;          // Data is sampled at middle of data output time
     SSPCONbits.SSPEN=0x01;      // Enable SPI Port
 	SSPIE = 0; //Dectivates the SPI-interrupt
-
+/*
 	//Initial values to the SPI Nodes
 	trCSDATA = 1; //initial value of CSDATA
 	trCSCON = 1; //initial value of CSCON
@@ -54,7 +55,7 @@ void initialConfigurationP16F887(){
 	csMem = 1;	//Initial value of csMem
 
 	oOnBoardLED = 1;
-
+*/
 
 
 	//Configuration of interrupt handler
@@ -76,9 +77,10 @@ void initialConfigurationP16F887(){
 	ADCON1bits.ADFM = 0;		//ADC result left justified
 	ADCON1bits.VCFG1 = 0;		//ADC Ref voltage at VSS
 	ADCON1bits.VCFG0 = 0;		//ADC Ref voltage at VDD
-
+/*
 	//Initiation of variables
 	intSecondCounter = 0;
 	intHalfSecondCounter = 0;
 	intMinuteCounter = 0;
+*/
 }
