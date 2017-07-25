@@ -19,20 +19,12 @@
 #include "duskGuard.h"
 #include "motionSensor.h"
 
-
-
-
-/**********************		Description		*************************************** 					
-***********************************************************************************/
 //Configline for initial configuration of registers in the PIC processors
 #pragma config DEBUG=OFF, LVP=OFF, FCMEN=OFF, IESO=OFF, BOREN=OFF, CPD=ON, CP=ON, MCLRE=OFF, PWRTE=OFF, WDTE=OFF, FOSC=INTRC_NOCLKOUT 
 
-//*************************************************************************************
-
 void main(){
-	//Costumer
-	struct Costumer_struct costumer = xtrafik;
-
+	//Customer
+	struct Customer_struct customer = xtrafik;
 
 	//Initiate clock
 	internalClock.halfSecond = 0;
@@ -41,8 +33,8 @@ void main(){
 
 	initialConfigurationP16F887();
 
-	ledLightConfig(&secondsCounter, (lightLength_type) costumer.ledsConfig.lightLength);
-	ledBlinkConfig(&internalClock.halfSecond, &secondsCounter, (blinkLength_type) costumer.ledsConfig.blinkLength);
+	ledLightConfig(&secondsCounter, (lightLength_type) customer.ledsConfig.lightLength);
+	ledBlinkConfig(&internalClock.halfSecond, &secondsCounter, (blinkLength_type) customer.ledsConfig.blinkLength);
 	buttonConfig(&millisecondCounter);
 	motionSensorConfig(&millisecondCounter);
 	duskGuardConfig(&millisecondCounter, &secondsCounter, 30);
@@ -55,7 +47,7 @@ void main(){
 		motionSensorUpdate();
 		duskGuardUpdate();
 
-		switch (costumer.ledsConfig.lightTrigger){
+		switch (customer.ledsConfig.lightTrigger){
 			case LIGHT_OFF:
 				break;
 			case LIGHT_MOTION_SENSOR:
@@ -74,7 +66,7 @@ void main(){
 				break;
 		}
 
-		switch (costumer.ledsConfig.blinkTrigger){
+		switch (customer.ledsConfig.blinkTrigger){
 			case BLINK_OFF:
 				break;
 			case BLINK_MOTION_SENSOR:
@@ -95,32 +87,13 @@ void main(){
 	}
 }
 
-/*********************************************************************
- * void interrupt tc_int(void)
- *
- * Overview:        
- *              This function controlls the interrupt routine generated in the controller
- *				The interupt occurs every half-second
- * PreCondition:    
- *              Processor HW configured correctly
- *
- * Input:       
- *             
- * Output:      None
- *
- * Side Effects:    
- *              Update of counting registers
- *
- ********************************************************************/
-
 void interrupt tc_int(void){
 	//Check if interrupt on timer overflow
 	if(TMR1IF == 1){
 		//Stop timer
 		TMR1ON = 0;
-		//Populate the timer registers again with the correct value to achive 0,5s until a new overflow
-		//TMR1H = 0x0B;
-		//TMR1L = 0xDB;
+		
+		//Populate the timer registers again with the correct value to achive 0,1s until a new overflow
 		TMR1H = 0xFB;
 		TMR1L = 0x1D;
 		

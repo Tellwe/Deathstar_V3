@@ -24,13 +24,14 @@ struct LedsConfig_struct{
 	blinkLength_type blinkLength;
 };
 
-//Costumer
-struct Costumer_struct{
+//Customer
+struct Customer_struct{
 	char name[20];	
 	struct LedsConfig_struct ledsConfig;
 };
 
-struct Costumer_struct xtrafik = {
+//Customer definitions
+struct Customer_struct xtrafik = {
 	"XTrafik",
 	{
 		LIGHT_MOTION_SENSOR,
@@ -38,5 +39,4 @@ struct Costumer_struct xtrafik = {
 		BLINK_MOTION_SENSOR,
 		BLINK_MINUTES3
 	}
-
 };
