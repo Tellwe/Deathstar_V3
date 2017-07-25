@@ -59,7 +59,7 @@ void initialConfigurationP16F887(){
 
 
 	//Configuration of interrupt handler
-	INTCONbits.RBIE = 1;	//Enable interrupt when change on PORTB
+	//INTCONbits.RBIE = 1;	//Enable interrupt when change on PORTB
 	INTCONbits.PEIE = 1;	//Enable peripheal interrupts
 	PIE1bits.TMR1IE = 1;	//Enable overflow interrupt TMR1
 	INTCONbits.GIE = 1;  	//Enable all unmasked interrupts

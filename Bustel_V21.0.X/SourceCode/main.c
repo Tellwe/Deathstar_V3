@@ -122,7 +122,6 @@ void interrupt tc_int(void){
  
 	}
 	TMR1IF = 0;			//Re-enable timer1-interrupt
-	RBIF = 0;			//Re-enable interrupt-on-change for PORTB
-    GIE = 1;			//Re-enable interrupts
+	GIE = 1;			//Re-enable interrupts
 return;
 }
