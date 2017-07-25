@@ -7,7 +7,7 @@
 void duskGuardConfig(unsigned int *millisecondCounterPtr, unsigned int *secondCounterPtr, unsigned int duskCheckInterval);
 int duskGuardUpdate();
 int duskGuardGetState();
-void DarknessCheck(void);
-unsigned char AnalogValue(unsigned char channel);
+void duskCheck(void);
+unsigned char analogChannelRead(unsigned char channel);
 
 #endif

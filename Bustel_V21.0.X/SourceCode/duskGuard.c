@@ -27,16 +27,16 @@ int duskGuardGetState()
 {
 	return duskGuardState;
 }
-void DarknessCheck(void)
+void duskCheck(void)
 {
 
-	if(AnalogValue(0)>duskThresholdValue)
+	if(analogChannelRead(0)>duskThresholdValue)
 		duskGuardState = 1;
 	else
 		duskGuardState = 0;
 		
 }
-unsigned char AnalogValue(unsigned char channel)
+unsigned char analogChannelRead(unsigned char channel)
 {
 	unsigned int waitTimeStamp = 0;
 	waitTimeStamp = *localmillisecondCounterPtr;
