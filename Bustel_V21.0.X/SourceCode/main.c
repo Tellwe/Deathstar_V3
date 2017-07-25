@@ -24,7 +24,7 @@
 
 void main(){
 	//Customer
-	struct Customer_struct customer = xtrafik;
+	struct Customer_struct customer = debugCustomer;
 
 	//Initiate clock
 	internalClock.halfSecond = 0;

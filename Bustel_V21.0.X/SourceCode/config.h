@@ -31,6 +31,15 @@ struct Customer_struct{
 };
 
 //Customer definitions
+struct Customer_struct debugCustomer = {
+	"DEBUG",
+	{
+		LIGHT_BUTTON,
+		LIGHT_MINUTES3,
+		BLINK_BUTTON,
+		BLINK_MINUTES3
+	}
+};
 struct Customer_struct xtrafik = {
 	"XTrafik",
 	{
