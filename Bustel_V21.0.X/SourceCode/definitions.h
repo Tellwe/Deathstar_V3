@@ -5,8 +5,7 @@
 //File containing all the abbreviations used in the project
 
 //Variables for the project
-
-//Clock
+#define CLOCKS_PER_MS	4000
 
 
 
@@ -17,5 +16,10 @@
 #define ledLightSignal			RC2
 //LED Blink output
 #define ledBlinkSignal			RC1
+//External button input
+#define externalButtonSignal	RB5
+//Onboard button input
+#define onboardButtonSignal		RB0
+
 
 #endif

@@ -7,19 +7,19 @@
 
 
 //Configuration variables for the driver
-//Enum with members for configuration for the blink cycle length
+//Enum with members for configuration for the blink  length
 typedef enum 
 { 
 	BLINK_OFF = 0,
 	BLINK_MINUTES3, 
 	BLINK_MINUTES5, 
 	BLINK_MINUTES10, 
-} blinkCycleLength_type;
+} blinkLength_type;
 
 
 
 //Functions for the driver
-void ledBlinkConfig(int *halfSecondCounterPtr, unsigned int *secondCounterPtr, blinkCycleLength_type blinkCycleLength);
+void ledBlinkConfig(int *halfSecondCounterPtr, unsigned int *secondCounterPtr, blinkLength_type blinkLength);
 int ledBlinkStart();
 int ledBlinkUpdate();
 int ledBlinkStop();

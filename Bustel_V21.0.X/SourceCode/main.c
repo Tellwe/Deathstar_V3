@@ -12,7 +12,7 @@
 //Global variables
 #include "globals.h"
 //Drivers
-//#include "button.h"
+#include "button.h"
 #include "ledBlink.h"
 #include "ledLight.h"
 //#include "duskGuard.h"
@@ -38,7 +38,7 @@ void main(){
 	initialConfigurationP16F887();
 
 	ledLightConfig(&secondsCounter, (lightLength_type) LIGHT_MINUTES2);
-	ledBlinkConfig(&internalClock.halfSecond, &secondsCounter, (blinkCycleLength_type) BLINK_MINUTES3);
+	ledBlinkConfig(&internalClock.halfSecond, &secondsCounter, (blinkLength_type) BLINK_MINUTES3);
 
 
 
@@ -47,13 +47,10 @@ void main(){
 	{
 		ledLightUpdate();
 		ledBlinkUpdate();
+		externalButtonUpdate();
 
-		if(secondsCounter == 5)
-		{
-			ledLightStart();
-			ledBlinkStart();
-		}
-
+		if(externalButtonGetState() == 1)
+			ledLightSignal = 1;
 	}
 
 }

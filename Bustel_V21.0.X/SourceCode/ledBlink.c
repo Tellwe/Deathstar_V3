@@ -10,13 +10,13 @@ int *localHalfSecondCounterPtr;
 int ledBlinkOn = 0; //State variable
 
 
-void ledBlinkConfig(int *halfSecondCounterPtr, unsigned int *secondCounterPtr, blinkCycleLength_type blinkCycleLength)
+void ledBlinkConfig(int *halfSecondCounterPtr, unsigned int *secondCounterPtr, blinkLength_type blinkLength)
 {
 	localHalfSecondCounterPtr = halfSecondCounterPtr;
 	localSecondCounterPtr = secondCounterPtr;
-	blinkCycleLength_type localBlinkCycleLength = blinkCycleLength;
+	blinkLength_type localBlinkLength = blinkLength;
 	
-	switch (localBlinkCycleLength) {
+	switch (localBlinkLength) {
 		case BLINK_OFF:
 			ledOnTimeInMinutes = 0;
 			break;
