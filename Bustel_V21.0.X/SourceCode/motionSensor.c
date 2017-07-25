@@ -16,7 +16,7 @@ void motionSensorConfig(unsigned int *millisecondCounterPtr)
 int motionSensorUpdate()
 {
 	static unsigned int begin;
-	//If the active-state of the button has been detected, initiate debounce sequence
+	//If the active-state of the motion sensor has been detected, initiate debounce sequence
 	if(motionSensorSignal == 1)
 	{
 		unsigned int var = *localMillisecondCounterPtr - begin;
