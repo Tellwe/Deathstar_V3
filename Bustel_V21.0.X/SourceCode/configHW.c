@@ -38,7 +38,7 @@ void initialConfigurationP16F887(){
 	WPUBbits.WPUB5 = 1; //Weak pull-up enabled RB5
 	while(!RB5);		//Wait for the input to stabilize
 	
-
+	RB1 = 1; //The onboard led has a 1 as off-state
 
 	//Configuration of the SPI communication
 	SSPCONbits.SSPM=0x00;       // SPI Master mode, clock = Fosc/4 (1000 Khz)
