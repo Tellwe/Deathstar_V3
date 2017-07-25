@@ -6,11 +6,13 @@
 unsigned int ledOnTimeInMinutes = 0;
 unsigned int start_ts = 0;
 unsigned int *localSecondCounterPtr;
+int *localHalfSecondCounterPtr;
 int ledBlinkOn = 0; //State variable
 
 
-void ledBlinkConfig(unsigned int *secondCounterPtr, blinkCycleLength_type blinkCycleLength)
+void ledBlinkConfig(int *halfSecondCounterPtr, unsigned int *secondCounterPtr, blinkCycleLength_type blinkCycleLength)
 {
+	localHalfSecondCounterPtr = halfSecondCounterPtr;
 	localSecondCounterPtr = secondCounterPtr;
 	blinkCycleLength_type localBlinkCycleLength = blinkCycleLength;
 	
@@ -55,7 +57,7 @@ int ledBlinkUpdate()
 	if(*localSecondCounterPtr == (start_ts + ledOnTimeInMinutes * 60))
 		ledBlinkStop();
 
-	if(ledBlinkOn == 1)
+	if(ledBlinkOn == 1 && *localHalfSecondCounterPtr == 1)
 		ledBlinkSignal = 1;
 	else 
 		ledBlinkSignal = 0;

@@ -38,13 +38,18 @@ void main(){
 	initialConfigurationP16F887();
 
 //	ledLightConfig(&seconds, (lightLength_type) MINUTES2);
+	ledBlinkConfig(&internalClock.halfSecond, &seconds, (blinkCycleLength_type) BLINK_MINUTES3);
 
 
 
 
 	while(1)
 	{
-//		ledUpdate();
+//		ledLightUpdate();
+		ledBlinkUpdate();
+
+		if(seconds == 10)
+			ledBlinkStart();
 
 
 	}
