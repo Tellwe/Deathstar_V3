@@ -22,8 +22,6 @@
 #define onboardButtonSignal			RB0
 //Motion Sensor input
 #define motionSensorSignal			RA1
-//Control for enabling analog measurement on HW
-#define analogReadDisabledSignal	RC0
 
 
 #endif

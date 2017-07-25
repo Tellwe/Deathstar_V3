@@ -10,7 +10,7 @@ static unsigned int *localmillisecondCounterPtr;
 static int duskGuardState = 0;
 static unsigned int localDuskCheckInterval = 0;
 static unsigned int duskCheckTimeStamp = 0;
-static unsigned int duskThresholdValue = 130;
+static unsigned int duskIfLargerThanThisValue = 200;
 
 int adStartedFlag = 0;
 int adBusyFlag = 0;
@@ -22,12 +22,14 @@ void duskGuardConfig(unsigned int *millisecondCounterPtr, unsigned int *secondCo
 	localmillisecondCounterPtr = millisecondCounterPtr;
 	localSecondCounterPtr = secondCounterPtr;
 	localDuskCheckInterval = duskCheckInterval;
+	duskCheckTimeStamp = *localSecondCounterPtr;
 }
 int duskGuardUpdate()
 {
-	if(*localSecondCounterPtr == duskCheckTimeStamp + localDuskCheckInterval)
+	if(*localSecondCounterPtr == duskCheckTimeStamp + localDuskCheckInterval && adStartedFlag == 0)
 	{
 		startAnalogChannelRead(0);
+		adStartedFlag = 1;
 
 	}
 	if(adStartedFlag == 1)
@@ -36,7 +38,8 @@ int duskGuardUpdate()
 		if(duskValue > -1)
 		{
 			adStartedFlag = 0;
-			duskGuardState = duskValue > duskThresholdValue;
+			duskGuardState = duskValue > duskIfLargerThanThisValue;
+			duskCheckTimeStamp = *localSecondCounterPtr;
 		}
 
 	}
@@ -47,7 +50,7 @@ int duskGuardGetState()
 	return duskGuardState;
 }
 
-int startAnalogChannelRead(unsigned char channel)
+void startAnalogChannelRead(unsigned char channel)
 {
 	
 	waitTimeStamp = *localmillisecondCounterPtr;
@@ -62,13 +65,13 @@ int startAnalogChannelRead(unsigned char channel)
 }
 int updateAnalogChannelRead()
 {
-	if(*localmillisecondCounterPtr < waitTimeStamp + 100) //Delay for the analog reading to staibilize
+	if(*localmillisecondCounterPtr > waitTimeStamp + 100) //Delay for the analog reading to staibilize
 	{
 		ADCON0bits.GO = 1;
 		adBusyFlag = 1;
 	}
 	if (adBusyFlag == 1) 
-		if (ADCON0bits.GO)
+		if (ADCON0bits.GO == 0)
 		{
 			ADCON0bits.ADON = 0;
 			analogReadDisabledSignal = 1;
