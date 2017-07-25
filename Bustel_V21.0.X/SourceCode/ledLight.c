@@ -3,7 +3,7 @@
 
 //Driver for the Light LED
 
-unsigned int ledOnTimeInMinutes = 0;
+static unsigned int ledOnTimeInMinutes = 0;
 unsigned int start_ts = 0;
 unsigned int *localSecondCounterPtr;
 int ledLightOn = 0; //State variable

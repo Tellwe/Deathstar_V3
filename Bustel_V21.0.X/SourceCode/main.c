@@ -37,20 +37,22 @@ void main(){
 
 	initialConfigurationP16F887();
 
-//	ledLightConfig(&seconds, (lightLength_type) MINUTES2);
-	ledBlinkConfig(&internalClock.halfSecond, &seconds, (blinkCycleLength_type) BLINK_MINUTES3);
+	ledLightConfig(&secondsCounter, (lightLength_type) LIGHT_MINUTES2);
+	ledBlinkConfig(&internalClock.halfSecond, &secondsCounter, (blinkCycleLength_type) BLINK_MINUTES3);
 
 
 
 
 	while(1)
 	{
-//		ledLightUpdate();
+		ledLightUpdate();
 		ledBlinkUpdate();
 
-		if(seconds == 10)
+		if(secondsCounter == 5)
+		{
+			ledLightStart();
 			ledBlinkStart();
-
+		}
 
 	}
 
@@ -92,7 +94,7 @@ void interrupt tc_int(void){
 		{
 			internalClock.halfSecond = 0;
 			internalClock.second++;
-			seconds++;
+			secondsCounter++;
 		}
 		if(internalClock.second >=60)
 		{
