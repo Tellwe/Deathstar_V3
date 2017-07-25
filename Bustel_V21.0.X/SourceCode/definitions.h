@@ -20,6 +20,8 @@
 #define externalButtonSignal	RB5
 //Onboard button input
 #define onboardButtonSignal		RB0
+//Motion Sensor input
+#define motionSensorSignal		RA1
 
 
 #endif

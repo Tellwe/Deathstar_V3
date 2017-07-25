@@ -2,10 +2,10 @@
 #include "button.h"
 
 static int externalButtonState = 0;
-int debounceCounter = 0;
+static int debounceCounter = 0;
 static int numberOfSuccessfullDetections = 5;
 static int debouncePeriodMilliSeconds = 10;
-unsigned int *localMillisecondCounterPtr;
+static unsigned int *localMillisecondCounterPtr;
 
 
 void externalButtonConfig(unsigned int *millisecondCounterPtr)

@@ -16,7 +16,7 @@
 #include "ledBlink.h"
 #include "ledLight.h"
 //#include "duskGuard.h"
-//#include "motionSensor.h"
+#include "motionSensor.h"
 
 
 
@@ -40,6 +40,7 @@ void main(){
 	ledLightConfig(&secondsCounter, (lightLength_type) LIGHT_MINUTES2);
 	ledBlinkConfig(&internalClock.halfSecond, &secondsCounter, (blinkLength_type) BLINK_MINUTES3);
 	externalButtonConfig(&millisecondCounter);
+	motionSensorConfig(&millisecondCounter);
 
 
 
@@ -48,9 +49,10 @@ void main(){
 	{
 		//ledLightUpdate();
 		//ledBlinkUpdate();
-		externalButtonUpdate();
+		//externalButtonUpdate();
+		motionSensorUpdate();
 
-		if(externalButtonGetState() == 1)
+		if(motionSensorGetState() == 1)
 			ledLightSignal = 1;
 		else
 			ledLightSignal = 0;
