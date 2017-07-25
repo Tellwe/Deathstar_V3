@@ -2,12 +2,20 @@
 #include "definitions.h"
 #include "duskGuard.h"
 
+//Control for enabling analog measurement on HW
+#define analogReadDisabledSignal	RC0
+
 static unsigned int *localSecondCounterPtr;
 static unsigned int *localmillisecondCounterPtr;
 static int duskGuardState = 0;
 static unsigned int localDuskCheckInterval = 0;
 static unsigned int duskCheckTimeStamp = 0;
 static unsigned int duskThresholdValue = 130;
+
+int adStartedFlag = 0;
+int adBusyFlag = 0;
+unsigned int waitTimeStamp = 0;
+
 
 void duskGuardConfig(unsigned int *millisecondCounterPtr, unsigned int *secondCounterPtr, unsigned int duskCheckInterval)
 {
@@ -19,6 +27,17 @@ int duskGuardUpdate()
 {
 	if(*localSecondCounterPtr == duskCheckTimeStamp + localDuskCheckInterval)
 	{
+		startAnalogChannelRead(0);
+
+	}
+	if(adStartedFlag == 1)
+	{
+		int duskValue = updateAnalogChannelRead();
+		if(duskValue > -1)
+		{
+			adStartedFlag = 0;
+			duskGuardState = duskValue > duskThresholdValue;
+		}
 
 	}
 	return 0;
@@ -27,37 +46,35 @@ int duskGuardGetState()
 {
 	return duskGuardState;
 }
-void duskCheck(void)
-{
 
-	if(analogChannelRead(0)>duskThresholdValue)
-		duskGuardState = 1;
-	else
-		duskGuardState = 0;
-		
-}
-unsigned char analogChannelRead(unsigned char channel)
+int startAnalogChannelRead(unsigned char channel)
 {
-	unsigned int waitTimeStamp = 0;
+	
 	waitTimeStamp = *localmillisecondCounterPtr;
 
-	disableAnalogReadingSignal = 0;
+	analogReadDisabledSignal = 0;
 	
 	ADCON0bits.CHS = channel;
 	ADCON0bits.ADON = 1;
+	adStartedFlag = 1;
 
-	while(*localmillisecondCounterPtr < waitTimeStamp + 100); //Delay for the analog reading to staibilize
 
-	ADCON0bits.GO = 1;
-
-	while(*localmillisecondCounterPtr < waitTimeStamp + 100); //Delay for the analog reading to staibilize
-
-	while(ADCON0bits.GO);
+}
+int updateAnalogChannelRead()
+{
+	if(*localmillisecondCounterPtr < waitTimeStamp + 100) //Delay for the analog reading to staibilize
+	{
+		ADCON0bits.GO = 1;
+		adBusyFlag = 1;
+	}
+	if (adBusyFlag == 1) 
+		if (ADCON0bits.GO)
+		{
+			ADCON0bits.ADON = 0;
+			analogReadDisabledSignal = 1;
+			adBusyFlag = 0;
+			return ADRESH;
+		}
 	
-	ADCON0bits.ADON = 0;
-	
-	disableAnalogReadingSignal = 1;
-	
-	return ADRESH;
-
+	return -1;	
 }

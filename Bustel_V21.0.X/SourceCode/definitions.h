@@ -23,7 +23,7 @@
 //Motion Sensor input
 #define motionSensorSignal			RA1
 //Control for enabling analog measurement on HW
-#define disableAnalogReadingSignal	RC0
+#define analogReadDisabledSignal	RC0
 
 
 #endif
