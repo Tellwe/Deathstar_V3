@@ -1,35 +1,37 @@
 #include "definitions.h"
-#include "time.h"
 #include "button.h"
 
 static int externalButtonState = 0;
 int debounceCounter = 0;
-static int numberOfSuccessfullDetections = 5	;
+static int numberOfSuccessfullDetections = 5;
 static int debouncePeriodMilliSeconds = 10;
+unsigned int *localMillisecondCounterPtr;
 
-void externalButtonConfig()
+
+void externalButtonConfig(unsigned int *millisecondCounterPtr)
 {
-
+	localMillisecondCounterPtr = millisecondCounterPtr;
+	
 }
 int externalButtonUpdate()
 {
-	static unsigned long begin;
+	static unsigned int begin;
 	//If the active-state of the button has been detected, initiate debounce sequence
-	if(externalButtonSignal == 1)
+	if(externalButtonSignal == 0)
 	{
-		unsigned long var = clock();// - begin / CLOCKS_PER_MS;
+		unsigned int var = *localMillisecondCounterPtr - begin;
 		if(debounceCounter == 0) 
 		{
-			begin = clock();
+			begin = *localMillisecondCounterPtr;
 			debounceCounter++;
 		}
 		else if(debounceCounter >= numberOfSuccessfullDetections)
 		{
 			externalButtonState = 1;
 		}
-		else if(var > debouncePeriodMilliSeconds)
+		else if(var >= debouncePeriodMilliSeconds)
 		{
-			begin = clock();
+			begin = *localMillisecondCounterPtr;
 			debounceCounter++;
 
 		}

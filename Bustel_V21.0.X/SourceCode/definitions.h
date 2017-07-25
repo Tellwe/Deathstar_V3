@@ -17,7 +17,7 @@
 //LED Blink output
 #define ledBlinkSignal			RC1
 //External button input
-#define externalButtonSignal	RB5
+#define externalButtonSignal	RB0
 //Onboard button input
 #define onboardButtonSignal		RB0
 

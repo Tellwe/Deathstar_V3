@@ -39,20 +39,22 @@ void main(){
 
 	ledLightConfig(&secondsCounter, (lightLength_type) LIGHT_MINUTES2);
 	ledBlinkConfig(&internalClock.halfSecond, &secondsCounter, (blinkLength_type) BLINK_MINUTES3);
+	externalButtonConfig(&millisecondCounter);
 
 
 
 
 	while(1)
 	{
-		ledLightUpdate();
-		ledBlinkUpdate();
-/*		externalButtonUpdate();
-*/
-		ledBlinkStart();
-/*		if(externalButtonGetState() == 1)
+		//ledLightUpdate();
+		//ledBlinkUpdate();
+		externalButtonUpdate();
+
+		if(externalButtonGetState() == 1)
 			ledLightSignal = 1;
-*/	}
+		else
+			ledLightSignal = 0;
+	}
 
 }
 
