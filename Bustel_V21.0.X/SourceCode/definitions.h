@@ -15,5 +15,7 @@
 //Map towards HW registers from xc.h
 //LED Light output
 #define ledLightSignal			RC2
+//LED Blink output
+#define ledBlinkSignal			RC1
 
 #endif

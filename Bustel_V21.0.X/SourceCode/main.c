@@ -13,7 +13,7 @@
 #include "globals.h"
 //Drivers
 //#include "button.h"
-//#include "ledBlink.h"
+#include "ledBlink.h"
 #include "ledLight.h"
 //#include "duskGuard.h"
 //#include "motionSensor.h"
@@ -37,17 +37,15 @@ void main(){
 
 	initialConfigurationP16F887();
 
-	ledLightConfig(&seconds, (lightLength_type) MINUTES2);
+//	ledLightConfig(&seconds, (lightLength_type) MINUTES2);
 
 
 
 
 	while(1)
 	{
-		ledUpdate();
+//		ledUpdate();
 
-		if(seconds == 10)
-			ledLightStart();
 
 	}
 

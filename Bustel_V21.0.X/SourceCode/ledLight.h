@@ -7,13 +7,14 @@
 
 
 //Configuration variables for the driver
+//Enum with members for configuration for the light cycle length
 typedef enum 
 { 
-	OFF = 0,
-	MINUTES2, 
-	MINUTES3, 
-	MINUTES5, 
-	MINUTES10
+	LIGHT_OFF = 0,
+	LIGHT_MINUTES2, 
+	LIGHT_MINUTES3, 
+	LIGHT_MINUTES5, 
+	LIGHT_MINUTES10
 } lightLength_type;
 
 
@@ -22,7 +23,7 @@ typedef enum
 //void ledLightConfig(struct MyClocks *clockPtr, lightLength_type lightLength);
 void ledLightConfig(unsigned int *secondCounterPtr, lightLength_type lightLength);
 int ledLightStart();
-int ledUpdate();
+int ledLightUpdate();
 int ledLightStop();
 
 #endif

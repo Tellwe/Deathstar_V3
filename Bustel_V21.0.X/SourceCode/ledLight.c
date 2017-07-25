@@ -3,36 +3,35 @@
 
 //Driver for the Light LED
 
-unsigned int ledOnTimeMinutes = 0;
+unsigned int ledOnTimeInMinutes = 0;
 unsigned int start_ts = 0;
 unsigned int *localSecondCounterPtr;
-int ledLightOn = 0;
+int ledLightOn = 0; //State variable
 
 
-//void ledLightConfig(struct MyClocks *clockPtr, lightLength_type lightLength)
 void ledLightConfig(unsigned int *secondCounterPtr, lightLength_type lightLength)
 {
 	localSecondCounterPtr = secondCounterPtr;
 	lightLength_type localLightLength = lightLength;
 	
 	switch (localLightLength) {
-		case OFF:
-			ledOnTimeMinutes = 0;
+		case LIGHT_OFF:
+			ledOnTimeInMinutes = 0;
 			break;
-		case MINUTES2:
-			ledOnTimeMinutes = 2;
+		case LIGHT_MINUTES2:
+			ledOnTimeInMinutes = 2;
 			break;
-		case MINUTES3:
-			ledOnTimeMinutes = 3;
+		case LIGHT_MINUTES3:
+			ledOnTimeInMinutes = 3;
 			break;
-		case MINUTES5:
-			ledOnTimeMinutes = 5;
+		case LIGHT_MINUTES5:
+			ledOnTimeInMinutes = 5;
 			break;
-		case MINUTES10:
-			ledOnTimeMinutes = 10;
+		case LIGHT_MINUTES10:
+			ledOnTimeInMinutes = 10;
 			break;
 		default:
-			ledOnTimeMinutes = 0;
+			ledOnTimeInMinutes = 0;
 			break;
 	}
 	//return 0;
@@ -53,10 +52,10 @@ int ledLightStart()
 		return 1;
 	}
 }
-int ledUpdate()
+int ledLightUpdate()
 {
 
-	if(*localSecondCounterPtr == (start_ts + ledOnTimeMinutes * 60))
+	if(*localSecondCounterPtr == (start_ts + ledOnTimeInMinutes * 60))
 		ledLightStop();
 
 	if(ledLightOn == 1)
