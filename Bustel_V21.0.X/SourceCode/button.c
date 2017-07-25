@@ -17,7 +17,8 @@ int externalButtonUpdate()
 	//If the active-state of the button has been detected, initiate debounce sequence
 	if(externalButtonSignal == 1)
 	{
-		if((debounceCounter == 0) || ((clock() - begin) / CLOCKS_PER_MS > debouncePeriodMilliSeconds))
+		unsigned long var = clock();// - begin / CLOCKS_PER_MS;
+		if(debounceCounter == 0) 
 		{
 			begin = clock();
 			debounceCounter++;
@@ -25,6 +26,12 @@ int externalButtonUpdate()
 		else if(debounceCounter >= numberOfSuccessfullDetections)
 		{
 			externalButtonState = 1;
+		}
+		else if(var > debouncePeriodMilliSeconds)
+		{
+			begin = clock();
+			debounceCounter++;
+
 		}
 	}
 	else

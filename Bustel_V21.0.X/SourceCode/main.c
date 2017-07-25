@@ -47,11 +47,12 @@ void main(){
 	{
 		ledLightUpdate();
 		ledBlinkUpdate();
-		externalButtonUpdate();
-
-		if(externalButtonGetState() == 1)
+/*		externalButtonUpdate();
+*/
+		ledBlinkStart();
+/*		if(externalButtonGetState() == 1)
 			ledLightSignal = 1;
-	}
+*/	}
 
 }
 
@@ -79,14 +80,21 @@ void interrupt tc_int(void){
 		//Stop timer
 		TMR1ON = 0;
 		//Populate the timer registers again with the correct value to achive 0,5s until a new overflow
-		TMR1H = 0x0B;
-		TMR1L = 0xDB;
+		//TMR1H = 0x0B;
+		//TMR1L = 0xDB;
+		TMR1H = 0xFB;
+		TMR1L = 0x1D;
 		
 		//Tick
 		//unsigned long begin = clock();
 
 		//Count  of the counter counting seconds for the application
-		internalClock.halfSecond++;
+		millisecondCounter+=10;
+		if(millisecondCounter == 500)
+		{
+			internalClock.halfSecond++;
+			millisecondCounter = 0;
+		}
 		if(internalClock.halfSecond>=2)
 		{
 			internalClock.halfSecond = 0;
