@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 //Configuration
+#include "config.h"
 #include "configHW.h"
 
 //Abbreviations
@@ -29,6 +30,9 @@
 //*************************************************************************************
 
 void main(){
+	//Costumer
+	struct Costumer_struct costumer = xtrafik;
+
 
 	//Initiate clock
 	internalClock.halfSecond = 0;
@@ -37,8 +41,8 @@ void main(){
 
 	initialConfigurationP16F887();
 
-	ledLightConfig(&secondsCounter, (lightLength_type) LIGHT_MINUTES2);
-	ledBlinkConfig(&internalClock.halfSecond, &secondsCounter, (blinkLength_type) BLINK_MINUTES3);
+	ledLightConfig(&secondsCounter, (lightLength_type) costumer.ledsConfig.lightLength);
+	ledBlinkConfig(&internalClock.halfSecond, &secondsCounter, (blinkLength_type) costumer.ledsConfig.blinkLength);
 	buttonConfig(&millisecondCounter);
 	motionSensorConfig(&millisecondCounter);
 	duskGuardConfig(&millisecondCounter, &secondsCounter, 30);
@@ -51,12 +55,44 @@ void main(){
 		motionSensorUpdate();
 		duskGuardUpdate();
 
-		if(duskGuardGetState() == 1)
-			ledLightSignal = 1;
-		else
-			ledLightSignal = 0;
-	}
+		switch (costumer.ledsConfig.lightTrigger){
+			case LIGHT_OFF:
+				break;
+			case LIGHT_MOTION_SENSOR:
+				if(isMotionDetected() == 1 && isItDusk() == 1)
+				{
+					ledLightStart();
+				}
+				break;
+			case LIGHT_BUTTON:
+				if(isButtonPushed() == 1 && isItDusk() == 1)
+				{
+					ledLightStart();
+				}
+				break;
+			default:
+				break;
+		}
 
+		switch (costumer.ledsConfig.blinkTrigger){
+			case BLINK_OFF:
+				break;
+			case BLINK_MOTION_SENSOR:
+				if(isMotionDetected() == 1)
+				{
+					ledBlinkStart();
+				}
+				break;
+			case BLINK_BUTTON:
+				if(isButtonPushed() == 1)
+				{
+					ledBlinkStart();
+				}
+				break;
+			default:
+				break;
+		}
+	}
 }
 
 /*********************************************************************

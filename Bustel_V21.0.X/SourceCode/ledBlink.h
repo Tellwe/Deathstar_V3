@@ -10,7 +10,7 @@
 //Enum with members for configuration for the blink  length
 typedef enum 
 { 
-	BLINK_OFF = 0,
+	BLINK_LENGTH_OFF = 0,
 	BLINK_MINUTES3, 
 	BLINK_MINUTES5, 
 	BLINK_MINUTES10, 

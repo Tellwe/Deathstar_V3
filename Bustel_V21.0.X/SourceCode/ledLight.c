@@ -8,6 +8,8 @@ unsigned int start_ts = 0;
 unsigned int *localSecondCounterPtr;
 int ledLightOn = 0; //State variable
 
+//LED Light output
+#define ledLightSignal				RC2
 
 void ledLightConfig(unsigned int *secondCounterPtr, lightLength_type lightLength)
 {
@@ -15,7 +17,7 @@ void ledLightConfig(unsigned int *secondCounterPtr, lightLength_type lightLength
 	lightLength_type localLightLength = lightLength;
 	
 	switch (localLightLength) {
-		case LIGHT_OFF:
+		case LIGHT_LENGTH_OFF:
 			ledOnTimeInMinutes = 0;
 			break;
 		case LIGHT_MINUTES2:

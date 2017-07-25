@@ -7,6 +7,6 @@
 //Functions for the driver
 void buttonConfig(unsigned int *secondCounterPtr);
 int buttonUpdate();
-int buttonGetState();
+int isButtonPushed();
 
 #endif

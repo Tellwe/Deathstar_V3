@@ -12,16 +12,9 @@
 
 
 //Map towards HW registers from xc.h
-//LED Light output
-#define ledLightSignal				RC2
-//LED Blink output
-#define ledBlinkSignal				RC1
-//External button input
-#define externalButtonSignal		RB5
 //Onboard button input
 #define onboardButtonSignal			RB0
-//Motion Sensor input
-#define motionSensorSignal			RA1
+
 
 
 #endif

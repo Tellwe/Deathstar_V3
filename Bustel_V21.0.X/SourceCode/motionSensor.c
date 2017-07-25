@@ -7,6 +7,8 @@ static int numberOfSuccessfullDetections = 10;
 static int debouncePeriodMilliSeconds = 10;
 static unsigned int *localMillisecondCounterPtr;
 
+//Motion Sensor input
+#define motionSensorSignal			RA1
 
 void motionSensorConfig(unsigned int *millisecondCounterPtr)
 {
@@ -44,7 +46,7 @@ int motionSensorUpdate()
 
 	return 0;
 }
-int motionSensorGetState()
+int isMotionDetected()
 {
 	return motionSensorState;
 }

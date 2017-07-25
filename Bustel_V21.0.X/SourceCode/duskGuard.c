@@ -45,7 +45,7 @@ int duskGuardUpdate()
 	}
 	return 0;
 }
-int duskGuardGetState()
+int isItDusk()
 {
 	return duskGuardState;
 }

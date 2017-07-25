@@ -7,6 +7,6 @@
 //Functions for the driver
 void motionSensorConfig(unsigned int *secondCounterPtr);
 int motionSensorUpdate();
-int motionSensorGetState();
+int isMotionDetected();
 
 #endif

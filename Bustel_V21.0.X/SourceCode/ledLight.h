@@ -10,7 +10,7 @@
 //Enum with members for configuration for the light cycle length
 typedef enum 
 { 
-	LIGHT_OFF = 0,
+	LIGHT_LENGTH_OFF = 0,
 	LIGHT_MINUTES2, 
 	LIGHT_MINUTES3, 
 	LIGHT_MINUTES5, 

@@ -9,6 +9,9 @@ unsigned int *localSecondCounterPtr;
 int *localHalfSecondCounterPtr;
 int ledBlinkOn = 0; //State variable
 
+//LED Blink output
+#define ledBlinkSignal				RC1
+
 
 void ledBlinkConfig(int *halfSecondCounterPtr, unsigned int *secondCounterPtr, blinkLength_type blinkLength)
 {
@@ -17,7 +20,7 @@ void ledBlinkConfig(int *halfSecondCounterPtr, unsigned int *secondCounterPtr, b
 	blinkLength_type localBlinkLength = blinkLength;
 	
 	switch (localBlinkLength) {
-		case BLINK_OFF:
+		case BLINK_LENGTH_OFF:
 			ledOnTimeInMinutes = 0;
 			break;
 		case BLINK_MINUTES3:

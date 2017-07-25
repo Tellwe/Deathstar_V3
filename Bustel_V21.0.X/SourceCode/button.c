@@ -47,7 +47,7 @@ int buttonUpdate()
 
 	return 0;
 }
-int buttonGetState()
+int isButtonPushed()
 {
 	return buttonState;
 }

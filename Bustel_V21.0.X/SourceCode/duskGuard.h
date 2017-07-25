@@ -6,7 +6,7 @@
 //Functions for the driver
 void duskGuardConfig(unsigned int *millisecondCounterPtr, unsigned int *secondCounterPtr, unsigned int duskCheckInterval);
 int duskGuardUpdate();
-int duskGuardGetState();
+int isItDusk();
 void startAnalogChannelRead(unsigned char channel);
 int updateAnalogChannelRead();
 
