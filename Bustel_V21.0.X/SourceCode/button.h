@@ -5,8 +5,8 @@
 
 
 //Functions for the driver
-void externalButtonConfig(unsigned int *secondCounterPtr);
-int externalButtonUpdate();
-int externalButtonGetState();
+void buttonConfig(unsigned int *secondCounterPtr);
+int buttonUpdate();
+int buttonGetState();
 
 #endif

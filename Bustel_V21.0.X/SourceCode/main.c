@@ -39,16 +39,16 @@ void main(){
 
 	ledLightConfig(&secondsCounter, (lightLength_type) LIGHT_MINUTES2);
 	ledBlinkConfig(&internalClock.halfSecond, &secondsCounter, (blinkLength_type) BLINK_MINUTES3);
-	externalButtonConfig(&millisecondCounter);
+	buttonConfig(&millisecondCounter);
 	motionSensorConfig(&millisecondCounter);
 	duskGuardConfig(&millisecondCounter, &secondsCounter, 30);
 
 	while(1)
 	{
-		//ledLightUpdate();
-		//ledBlinkUpdate();
-		//externalButtonUpdate();
-		//motionSensorUpdate();
+		ledLightUpdate();
+		ledBlinkUpdate();
+		buttonUpdate();
+		motionSensorUpdate();
 		duskGuardUpdate();
 
 		if(duskGuardGetState() == 1)

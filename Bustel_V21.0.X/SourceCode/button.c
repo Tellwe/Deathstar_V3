@@ -1,23 +1,26 @@
 #include "definitions.h"
 #include "button.h"
 
-static int externalButtonState = 0;
+static int buttonState = 0;
 static int debounceCounter = 0;
 static int numberOfSuccessfullDetections = 5;
 static int debouncePeriodMilliSeconds = 10;
 static unsigned int *localMillisecondCounterPtr;
 
+//Button input
+#define buttonSignal		RB5
 
-void externalButtonConfig(unsigned int *millisecondCounterPtr)
+
+void buttonConfig(unsigned int *millisecondCounterPtr)
 {
 	localMillisecondCounterPtr = millisecondCounterPtr;
 	
 }
-int externalButtonUpdate()
+int buttonUpdate()
 {
 	static unsigned int begin;
 	//If the active-state of the button has been detected, initiate debounce sequence
-	if(externalButtonSignal == 0)
+	if(buttonSignal == 0)
 	{
 		unsigned int var = *localMillisecondCounterPtr - begin;
 		if(debounceCounter == 0) 
@@ -27,7 +30,7 @@ int externalButtonUpdate()
 		}
 		else if(debounceCounter >= numberOfSuccessfullDetections)
 		{
-			externalButtonState = 1;
+			buttonState = 1;
 		}
 		else if(var >= debouncePeriodMilliSeconds)
 		{
@@ -39,12 +42,12 @@ int externalButtonUpdate()
 	else
 	{
 		debounceCounter = 0;
-		externalButtonState = 0;
+		buttonState = 0;
 	}
 
 	return 0;
 }
-int externalButtonGetState()
+int buttonGetState()
 {
-	return externalButtonState;
+	return buttonState;
 }
