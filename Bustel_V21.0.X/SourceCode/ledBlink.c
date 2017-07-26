@@ -4,10 +4,10 @@
 //Driver for the Blink LED
 
 static unsigned int ledOnTimeInMinutes = 0;
-unsigned int start_ts = 0;
-unsigned int *localSecondCounterPtr;
-unsigned int *localMilliSecondCounterPtr;
-int ledBlinkOn = 0; //State variable
+static unsigned int blinkStartTimeStamp = 0;
+static unsigned int *localSecondCounterPtr;
+static unsigned int *localMilliSecondCounterPtr;
+static int ledBlinkOn = 0; //State variable
 
 //LED Blink output
 #define ledBlinkSignal				RC1
@@ -45,7 +45,7 @@ int ledBlinkStart()
 	//Set the start timestamp
 	if(ledBlinkOn == 0)
 	{
-		start_ts = *localSecondCounterPtr;
+		blinkStartTimeStamp = *localSecondCounterPtr;
 		ledBlinkOn = 1; //Turn on the LED
 		return 0;
 	}
@@ -57,7 +57,7 @@ int ledBlinkStart()
 int ledBlinkUpdate()
 {
 
-	if(*localSecondCounterPtr == (start_ts + ledOnTimeInMinutes * 60))
+	if(*localSecondCounterPtr == (blinkStartTimeStamp + ledOnTimeInMinutes * 60))
 		ledBlinkStop();
 
 	if(ledBlinkOn == 1 && *localMilliSecondCounterPtr >= 500)

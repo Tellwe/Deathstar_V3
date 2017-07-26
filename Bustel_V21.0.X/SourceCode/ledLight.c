@@ -4,9 +4,9 @@
 //Driver for the Light LED
 
 static unsigned int ledOnTimeInMinutes = 0;
-unsigned int start_ts = 0;
-unsigned int *localSecondCounterPtr;
-int ledLightOnFlag = 0; //State variable
+static unsigned int lightStartTimeStamp = 0;
+static unsigned int *localSecondCounterPtr;
+static int ledLightOnFlag = 0; //State variable
 
 //LED Light output
 #define ledLightSignal				RC2
@@ -45,7 +45,7 @@ int ledLightStart()
 	//Set the start timestamp
 	if(ledLightOnFlag == 0)
 	{
-		start_ts = *localSecondCounterPtr;
+		lightStartTimeStamp = *localSecondCounterPtr;
 		ledLightOnFlag = 1; //Turn on the LED
 		return 0;
 	}
@@ -57,7 +57,7 @@ int ledLightStart()
 int ledLightUpdate()
 {
 
-	if(*localSecondCounterPtr == (start_ts + ledOnTimeInMinutes * 60))
+	if(*localSecondCounterPtr == (lightStartTimeStamp + ledOnTimeInMinutes * 60))
 		ledLightStop();
 
 	if(ledLightOnFlag == 1)
