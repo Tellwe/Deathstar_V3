@@ -26,7 +26,7 @@ struct LedsConfig_struct{
 
 //Customer
 struct Customer_struct{
-	char name[20];	
+	char name[30];	
 	struct LedsConfig_struct ledsConfig;
 };
 
@@ -47,5 +47,23 @@ struct Customer_struct xtrafik = {
 		LIGHT_MINUTES3,
 		BLINK_MOTION_SENSOR,
 		BLINK_MINUTES3
+	}
+};
+struct Customer_struct varmlandsTrafikShelter = {
+	"VarmlandsTrafik Shelter",
+	{
+		LIGHT_MOTION_SENSOR,
+		LIGHT_MINUTES2,
+		BLINK_BUTTON,
+		BLINK_MINUTES10
+	}
+};
+struct Customer_struct varmlandsTrafikPost = {
+	"VarmlandsTrafik Post",
+	{
+		LIGHT_BUTTON,
+		LIGHT_MINUTES10,
+		BLINK_BUTTON,
+		BLINK_MINUTES10
 	}
 };
