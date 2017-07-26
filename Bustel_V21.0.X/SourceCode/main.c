@@ -29,7 +29,7 @@ void main(){
 	initialConfigurationP16F887();
 
 	ledLightConfig(&secondsCounter, (lightLength_type) customer.ledsConfig.lightLength);
-	ledBlinkConfig(&halfSecondCounter, &secondsCounter, (blinkLength_type) customer.ledsConfig.blinkLength);
+	ledBlinkConfig(&millisecondCounter, &secondsCounter, (blinkLength_type) customer.ledsConfig.blinkLength);
 	buttonConfig(&millisecondCounter);
 	motionSensorConfig(&millisecondCounter);
 	duskGuardConfig(&millisecondCounter, &secondsCounter, 30);
@@ -97,14 +97,9 @@ void interrupt tc_int(void){
 
 		//Count  of the counter counting seconds for the application
 		millisecondCounter+=10;
-		if(millisecondCounter >= 500)
+		if(millisecondCounter>=1000)
 		{
-			halfSecondCounter++;
 			millisecondCounter = 0;
-		}
-		if(halfSecondCounter>=2)
-		{
-			halfSecondCounter = 0;
 			secondsCounter++;
 		}
 
@@ -115,7 +110,7 @@ void interrupt tc_int(void){
 //		unsigned long end = clock();
 //		double time_spent = (double) (end-begin) / CLOCKS_PER_SEC;
 	}
-	
+
 	TMR1IF = 0;			//Re-enable timer1-interrupt
 	GIE = 1;			//Re-enable interrupts
 return;

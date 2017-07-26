@@ -6,16 +6,16 @@
 static unsigned int ledOnTimeInMinutes = 0;
 unsigned int start_ts = 0;
 unsigned int *localSecondCounterPtr;
-unsigned int *localHalfSecondCounterPtr;
+unsigned int *localMilliSecondCounterPtr;
 int ledBlinkOn = 0; //State variable
 
 //LED Blink output
 #define ledBlinkSignal				RC1
 
 
-void ledBlinkConfig(unsigned int *halfSecondCounterPtr, unsigned int *secondCounterPtr, blinkLength_type blinkLength)
+void ledBlinkConfig(unsigned int *milliSecondCounterPtr, unsigned int *secondCounterPtr, blinkLength_type blinkLength)
 {
-	localHalfSecondCounterPtr = halfSecondCounterPtr;
+	localMilliSecondCounterPtr = milliSecondCounterPtr;
 	localSecondCounterPtr = secondCounterPtr;
 	blinkLength_type localBlinkLength = blinkLength;
 	
@@ -60,7 +60,7 @@ int ledBlinkUpdate()
 	if(*localSecondCounterPtr == (start_ts + ledOnTimeInMinutes * 60))
 		ledBlinkStop();
 
-	if(ledBlinkOn == 1 && *localHalfSecondCounterPtr == 1)
+	if(ledBlinkOn == 1 && *localMilliSecondCounterPtr >= 500)
 		ledBlinkSignal = 1;
 	else 
 		ledBlinkSignal = 0;
