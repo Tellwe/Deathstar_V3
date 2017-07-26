@@ -26,15 +26,10 @@ void main(){
 	//Customer
 	struct Customer_struct customer = debugCustomer;
 
-	//Initiate clock
-	internalClock.halfSecond = 0;
-	internalClock.second = 0;
-	internalClock.minute = 0;
-
 	initialConfigurationP16F887();
 
 	ledLightConfig(&secondsCounter, (lightLength_type) customer.ledsConfig.lightLength);
-	ledBlinkConfig(&internalClock.halfSecond, &secondsCounter, (blinkLength_type) customer.ledsConfig.blinkLength);
+	ledBlinkConfig(&halfSecondCounter, &secondsCounter, (blinkLength_type) customer.ledsConfig.blinkLength);
 	buttonConfig(&millisecondCounter);
 	motionSensorConfig(&millisecondCounter);
 	duskGuardConfig(&millisecondCounter, &secondsCounter, 30);
@@ -93,7 +88,7 @@ void interrupt tc_int(void){
 		//Stop timer
 		TMR1ON = 0;
 		
-		//Populate the timer registers again with the correct value to achive 0,1s until a new overflow
+		//Populate the timer registers again with the correct value to achive 0,01s until a new overflow
 		TMR1H = 0xFB;
 		TMR1L = 0x1D;
 		
@@ -102,25 +97,15 @@ void interrupt tc_int(void){
 
 		//Count  of the counter counting seconds for the application
 		millisecondCounter+=10;
-		if(millisecondCounter == 500)
+		if(millisecondCounter >= 500)
 		{
-			internalClock.halfSecond++;
+			halfSecondCounter++;
 			millisecondCounter = 0;
 		}
-		if(internalClock.halfSecond>=2)
+		if(halfSecondCounter>=2)
 		{
-			internalClock.halfSecond = 0;
-			internalClock.second++;
+			halfSecondCounter = 0;
 			secondsCounter++;
-		}
-		if(internalClock.second >=60)
-		{
-			internalClock.second = 0;
-			internalClock.minute++;
-		}
-		if(internalClock.minute >= 60)
-		{
-			internalClock.minute = 0;
 		}
 
 		//Start Timer again
@@ -129,8 +114,8 @@ void interrupt tc_int(void){
 		//tock
 //		unsigned long end = clock();
 //		double time_spent = (double) (end-begin) / CLOCKS_PER_SEC;
- 
 	}
+	
 	TMR1IF = 0;			//Re-enable timer1-interrupt
 	GIE = 1;			//Re-enable interrupts
 return;

@@ -6,14 +6,14 @@
 static unsigned int ledOnTimeInMinutes = 0;
 unsigned int start_ts = 0;
 unsigned int *localSecondCounterPtr;
-int *localHalfSecondCounterPtr;
+unsigned int *localHalfSecondCounterPtr;
 int ledBlinkOn = 0; //State variable
 
 //LED Blink output
 #define ledBlinkSignal				RC1
 
 
-void ledBlinkConfig(int *halfSecondCounterPtr, unsigned int *secondCounterPtr, blinkLength_type blinkLength)
+void ledBlinkConfig(unsigned int *halfSecondCounterPtr, unsigned int *secondCounterPtr, blinkLength_type blinkLength)
 {
 	localHalfSecondCounterPtr = halfSecondCounterPtr;
 	localSecondCounterPtr = secondCounterPtr;

@@ -19,7 +19,7 @@ typedef enum
 
 
 //Functions for the driver
-void ledBlinkConfig(int *halfSecondCounterPtr, unsigned int *secondCounterPtr, blinkLength_type blinkLength);
+void ledBlinkConfig(unsigned int *halfSecondCounterPtr, unsigned int *secondCounterPtr, blinkLength_type blinkLength);
 int ledBlinkStart();
 int ledBlinkUpdate();
 int ledBlinkStop();

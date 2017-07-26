@@ -10,6 +10,7 @@ struct MyClocks{
 
 struct MyClocks internalClock;
 
+unsigned int halfSecondCounter = 0;
 unsigned int secondsCounter = 0;
 unsigned int millisecondCounter = 0;
 
