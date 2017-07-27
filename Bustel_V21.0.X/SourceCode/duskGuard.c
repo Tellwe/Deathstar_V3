@@ -10,7 +10,7 @@ static unsigned int *localmillisecondCounterPtr;
 static int duskGuardState = 0;
 static unsigned int localDuskCheckInterval = 0;
 static unsigned int duskCheckTimeStamp = 0;
-static unsigned int duskIfLargerThanThisValue = 200;
+static unsigned int duskIfLargerThanThisValue = 240;
 
 int adStartedFlag = 0;
 int adBusyFlag = 0;
