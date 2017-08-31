@@ -24,7 +24,7 @@
 
 void main(){
 	//Customer
-	struct Customer_struct customer = debugCustomer;
+	struct Customer_struct customer = xtrafik_pir;
 
 	initialConfigurationP16F887();
 
@@ -114,4 +114,4 @@ void interrupt tc_int(void){
 	TMR1IF = 0;			//Re-enable timer1-interrupt
 	GIE = 1;			//Re-enable interrupts
 return;
-}
+} 

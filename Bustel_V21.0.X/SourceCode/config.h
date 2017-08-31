@@ -40,17 +40,26 @@ struct Customer_struct debugCustomer = {
 		BLINK_MINUTES3
 	}
 };
-struct Customer_struct xtrafik = {
+/*struct Customer_struct xtrafik = {
 	"XTrafik",
 	{
+		LIGHT_BUTTON,
+		LIGHT_MINUTES5,
+		BLINK_BUTTON,
+		BLINK_MINUTES5
+	}
+};*/
+struct Customer_struct xtrafik_pir = {
+	"XTrafik, PIR Trigger",
+	{
 		LIGHT_MOTION_SENSOR,
-		LIGHT_MINUTES3,
+		LIGHT_MINUTES5,
 		BLINK_MOTION_SENSOR,
-		BLINK_MINUTES3
+		BLINK_MINUTES5
 	}
 };
 struct Customer_struct varmlandsTrafikShelter = {
-	"VarmlandsTrafik Shelter",
+	"VarmlandsTrafik Kur",
 	{
 		LIGHT_MOTION_SENSOR,
 		LIGHT_MINUTES2,
@@ -59,7 +68,7 @@ struct Customer_struct varmlandsTrafikShelter = {
 	}
 };
 struct Customer_struct varmlandsTrafikPost = {
-	"VarmlandsTrafik Post",
+	"VarmlandsTrafik Stolpe",
 	{
 		LIGHT_BUTTON,
 		LIGHT_MINUTES10,
