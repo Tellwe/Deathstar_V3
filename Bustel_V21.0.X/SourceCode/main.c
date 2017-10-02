@@ -18,13 +18,14 @@
 #include "ledLight.h"
 #include "duskGuard.h"
 #include "motionSensor.h"
+#include "transceiver.h"
 
 //Configline for initial configuration of registers in the PIC processors
 #pragma config DEBUG=OFF, LVP=OFF, FCMEN=OFF, IESO=OFF, BOREN=OFF, CPD=ON, CP=ON, MCLRE=OFF, PWRTE=OFF, WDTE=OFF, FOSC=INTRC_NOCLKOUT 
 
 void main(){
 	//Customer
-	struct Customer_struct customer = xtrafik_pir;
+	struct Customer_struct customer = xtrafik;
 
 	initialConfigurationP16F887();
 
@@ -33,6 +34,7 @@ void main(){
 	buttonConfig(&millisecondCounter);
 	motionSensorConfig(&millisecondCounter);
 	duskGuardConfig(&millisecondCounter, &secondsCounter, 30);
+	transceiverConfig();
 
 	while(1)
 	{
