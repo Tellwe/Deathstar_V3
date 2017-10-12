@@ -32,12 +32,6 @@ void initialConfigurationP16F887(){
 	ANSELbits.ANS7 = 1;	//RE2 = analog input
 	ANSELHbits.ANS8 = 1;	//RB2 = analog input
 
-	OPTION_REGbits.nRBPU = 0; //For enabling of pull-ups
-	WPUBbits.WPUB0 = 1; //Weak pull-up enabled RB0
-	while(!RB0);		//Wait for the input to stabilize
-	WPUBbits.WPUB5 = 1; //Weak pull-up enabled RB5
-	while(!RB5);		//Wait for the input to stabilize
-	
 	RB1 = 1; //The onboard led has a 1 as off-state
 
 	//Configuration of the SPI communication
