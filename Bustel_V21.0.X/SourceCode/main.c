@@ -18,7 +18,6 @@
 #include "ledLight.h"
 #include "duskGuard.h"
 #include "motionSensor.h"
-#include "transceiver.h"
 
 //Configline for initial configuration of registers in the PIC processors
 #pragma config DEBUG=OFF, LVP=OFF, FCMEN=OFF, IESO=OFF, BOREN=OFF, CPD=ON, CP=ON, MCLRE=OFF, PWRTE=OFF, WDTE=OFF, FOSC=INTRC_NOCLKOUT 
