@@ -18,7 +18,6 @@
 #include "ledLight.h"
 #include "duskGuard.h"
 #include "motionSensor.h"
-#include "transceiver.h"
 
 
 #include "longRangeTransceiver.h"
