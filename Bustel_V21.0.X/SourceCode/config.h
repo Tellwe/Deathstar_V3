@@ -13,8 +13,15 @@ typedef enum
 { 
 	BLINK_OFF = 0,
 	BLINK_MOTION_SENSOR,
-	BLINK_BUTTON
+	BLINK_BUTTON,
+	BLINK_LONGRANGETRANCEIVER
 } blinkTrigger_type;
+
+typedef enum 
+{ 
+	TRANSCEIVER_OFF = 0,
+	TRANCEIVER_BUTTON
+} transceiverTrigger_type;
 
 //Application layer
 struct LedsConfig_struct{
@@ -22,6 +29,7 @@ struct LedsConfig_struct{
 	lightLength_type lightLength;
 	blinkTrigger_type blinkTrigger;
 	blinkLength_type blinkLength;
+	transceiverTrigger_type transceiverTrigger;
 };
 
 //Customer
@@ -49,6 +57,7 @@ struct Customer_struct debugCustomer = {
 		BLINK_MINUTES5
 	}
 };*/
+	/*
 struct Customer_struct xtrafik_pir = {
 	"XTrafik, PIR Trigger",
 	{
@@ -67,6 +76,7 @@ struct Customer_struct varmlandsTrafikShelter = {
 		BLINK_MINUTES10
 	}
 };
+
 struct Customer_struct varmlandsTrafikPost = {
 	"VarmlandsTrafik Stolpe",
 	{
@@ -74,5 +84,16 @@ struct Customer_struct varmlandsTrafikPost = {
 		LIGHT_MINUTES10,
 		BLINK_BUTTON,
 		BLINK_MINUTES10
+	}
+};
+*/
+struct Customer_struct testLongRangeTranceiver = {
+	"Test for long range tranceiver",
+	{
+		LIGHT_BUTTON,
+		LIGHT_MINUTES10,
+		BLINK_LONGRANGETRANCEIVER,
+		BLINK_MINUTES10,
+		TRANCEIVER_BUTTON
 	}
 };

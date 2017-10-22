@@ -19,49 +19,52 @@
 #include "duskGuard.h"
 #include "motionSensor.h"
 #include "transceiver.h"
-
-
 #include "longRangeTransceiver.h"
 
 //Configline for initial configuration of registers in the PIC processors
 #pragma config DEBUG=OFF, LVP=OFF, FCMEN=OFF, IESO=OFF, BOREN=OFF, CPD=ON, CP=ON, MCLRE=OFF, PWRTE=OFF, WDTE=OFF, FOSC=INTRC_NOCLKOUT 
 
-#define buttonSignal		RB5
-#define ledBlinkSignal				RC1
+#define _XTAL_FREQ 4000000
+
 void main(){
 	//Customer
-	//struct Customer_struct customer = xtrafik_pir;
+	struct Customer_struct customer = testLongRangeTranceiver;
 
 	initialConfigurationP16F887();
 
-	//ledLightConfig(&secondsCounter, (lightLength_type) customer.ledsConfig.lightLength);
-	//ledBlinkConfig(&millisecondCounter, &secondsCounter, (blinkLength_type) customer.ledsConfig.blinkLength);
-	//buttonConfig(&millisecondCounter);
-	//motionSensorConfig(&millisecondCounter);
-	//duskGuardConfig(&millisecondCounter, &secondsCounter, 30);
+	ledLightConfig(&secondsCounter, (lightLength_type) customer.ledsConfig.lightLength);
+	ledBlinkConfig(&millisecondCounter, &secondsCounter, (blinkLength_type) customer.ledsConfig.blinkLength);
+	buttonConfig(&millisecondCounter);
+	motionSensorConfig(&millisecondCounter);
+	duskGuardConfig(&millisecondCounter, &secondsCounter, 30);
+	longTranceiverConfig();
 
 	while(1)
 	{
-		sendTransState(buttonSignal);
-
-		ledBlinkSignal = transState();
-
-
-
-
-
-
-
-
-		
-
-		
-/*		ledLightUpdate();
+		ledLightUpdate();
 		ledBlinkUpdate();
 		buttonUpdate();
 		motionSensorUpdate();
 		duskGuardUpdate();
+		updateLongRangeTranceiver();
 
+		if(isButtonPushed())
+			sendStateChange();
+
+		if(isBlinkReqReceived()){
+			RC1 = 0;
+			__delay_ms(1000);
+		}
+		else
+			RC1 = 1;
+
+		if(hasAswerBeenReceived()){
+			RC1 = 0;
+			__delay_ms(2000);
+		}
+		else
+			RC1 = 1;
+/*
 		switch (customer.ledsConfig.lightTrigger){
 			case LIGHT_OFF:
 				break;
@@ -96,12 +99,30 @@ void main(){
 					ledBlinkStart();
 				}
 				break;
+			case BLINK_LONGRANGETRANCEIVER:
+				if(transState()==1){
+					ledBlinkStart();
+				}	
 			default:
 				break;
 		}
-*/	}
+
+		switch (customer.ledsConfig.transceiverTrigger){
+			case TRANSCEIVER_OFF:
+				break;
+			case TRANCEIVER_BUTTON:
+				if(isButtonPushed() == 1)
+				{	
+					sendStartBlink();
+				}
+				break;	
+			default:
+				break;
+		}
+		*/
+	}
 }
-/*
+
 void interrupt tc_int(void){
 	//Check if interrupt on timer overflow
 	if(TMR1IF == 1){
@@ -134,5 +155,6 @@ void interrupt tc_int(void){
 	TMR1IF = 0;			//Re-enable timer1-interrupt
 	GIE = 1;			//Re-enable interrupts
 return;
-} 
-*/
+}
+
+
