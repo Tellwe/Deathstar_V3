@@ -7,7 +7,7 @@
 //Functions for the driver
 void sendStartBlink();
 void updateLongRangeTranceiver();
-void longTranceiverConfig();
+void longTranceiverConfig(unsigned int *millisecondCounterPtr);
 int isBlinkSignalReceived();
 
 
