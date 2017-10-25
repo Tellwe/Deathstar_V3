@@ -48,23 +48,6 @@ void main(){
 		duskGuardUpdate();
 		updateLongRangeTranceiver();
 
-		if(isButtonPushed())
-			sendStateChange();
-
-		if(isBlinkReqReceived()){
-			RC1 = 0;
-			__delay_ms(1000);
-		}
-		else
-			RC1 = 1;
-
-		if(hasAswerBeenReceived()){
-			RC1 = 0;
-			__delay_ms(2000);
-		}
-		else
-			RC1 = 1;
-/*
 		switch (customer.ledsConfig.lightTrigger){
 			case LIGHT_OFF:
 				break;
@@ -100,7 +83,7 @@ void main(){
 				}
 				break;
 			case BLINK_LONGRANGETRANCEIVER:
-				if(transState()==1){
+				if(isBlinkSignalReceived()==1){
 					ledBlinkStart();
 				}	
 			default:
@@ -119,7 +102,7 @@ void main(){
 			default:
 				break;
 		}
-		*/
+		
 	}
 }
 

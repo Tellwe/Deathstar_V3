@@ -5,21 +5,15 @@
 #define signalIn RB7
 
 
-static int varBlinkReqReceived = 0;
 static int answerReceived = 0;
 static int stateChange =0;
 static int state;
-static int signalReceived=0;
-static int sendSignal=0;
+static int firstStateChange=0;
 static int waitingForAnswer=0;
-static int debounceCounter = 0;
-static int numberOfSuccessfullDetections = 5;
-static int debouncePeriodMilliSeconds = 10;
-static unsigned int *localMillisecondCounterPtr;
 
+// Registers the initial state
 void longTranceiverConfig()
 {
-	//localMillisecondCounterPtr = millisecondCounterPtr;
 	state=signalIn;
 }
 
@@ -27,53 +21,36 @@ void updateLongRangeTranceiver(){
 
 
 	//New State
-	if(state != signalIn){
+	if(state != signalIn ){
 		state=signalIn;
-		if(waitingForAnswer == 1){
-			answerHasBeenReceived();	
-		}
-		blinkReqReceived();
-	}
-	//Not new state
-	else{
-		stateChange=0;
+		// There is for some unknown reason always a state change in the beginning
+		if(firstStateChange==0)
+			firstStateChange=1;
+		else
+			stateChange=1;
+		// Only bounce back signal if waiting for answer
+		if(waitingForAnswer ==1){
+			answerReceived==1;
+		}else
+			signalOut=!signalOut;
 	}			
 }
-void blinkReqReceived(){
-	varBlinkReqReceived = 1;
-	sendStateChange(); //Send answer back
 
-}
-int isBlinkReqReceived(){
-	if(varBlinkReqReceived){
-		varBlinkReqReceived = 0;
-		return 1;
+// returns 1 if state has changed or answer has been received
+int isBlinkSignalReceived(){
+	int returnValue=0;
+	if(stateChange==1){
+		stateChange=0;
+		returnValue= 1;
+	}else if(answerReceived==1){
+		answerReceived=0;
+		returnValue= 1;
 	}
-	else
-		return 0;
-}
-void answerHasBeenReceived(){
-	waitingForAnswer = 0;
-	answerReceived = 1;
-}
-int hasAswerBeenReceived(){
-	if(answerReceived == 1){
-		answerReceived = 0;
-		return 1;
-	}
-	else{
-		return 0;
-	}
-		 
-}
-void sendStartBlink(){	
-	sendStateChange();
-	waitingForAnswer = 1;
+	return returnValue;
 }
 
-void sendStateChange(){
-	if(signalOut)
-		signalOut = 0;
-	else
-		signalOut = 1;
+void sendStartBlink(){
+	signalOut=!signalOut;
+	waitingForAnswer =1;
+
 }
