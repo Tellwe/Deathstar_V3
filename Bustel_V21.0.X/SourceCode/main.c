@@ -37,7 +37,7 @@ void main(){
 	buttonConfig(&millisecondCounter);
 	motionSensorConfig(&millisecondCounter);
 	duskGuardConfig(&millisecondCounter, &secondsCounter, 30);
-	longTranceiverConfig(&millisecondCounter);
+	longTranceiverConfig(&millisecondCounter,&secondsCounter);
 
 	while(1)
 	{

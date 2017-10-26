@@ -7,6 +7,7 @@ static int numberOfSuccessfullDetections = 5;
 static int debouncePeriodMilliSeconds = 10;
 static unsigned int *localMillisecondCounterPtr;
 
+
 //Button input
 #define buttonSignal		RB5
 
