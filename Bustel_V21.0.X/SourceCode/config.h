@@ -1,5 +1,6 @@
 #include "ledBlink.h"
 #include "ledLight.h"
+#include "longRangeTransceiver.h"
 
 //Configuration layer
 typedef enum 
@@ -30,6 +31,8 @@ struct LedsConfig_struct{
 	blinkTrigger_type blinkTrigger;
 	blinkLength_type blinkLength;
 	transceiverTrigger_type transceiverTrigger;
+	transceiver_type transceiver;
+
 };
 
 //Customer
@@ -87,13 +90,26 @@ struct Customer_struct varmlandsTrafikPost = {
 	}
 };
 */
-struct Customer_struct testLongRangeTranceiver = {
-	"Test for long range tranceiver",
+struct Customer_struct reciver = {
+	"receiver",
 	{
 		LIGHT_BUTTON,
 		LIGHT_MINUTES10,
 		BLINK_LONGRANGETRANCEIVER,
 		BLINK_MINUTES10,
-		TRANCEIVER_BUTTON
+		TRANCEIVER_BUTTON,
+		RECEIVER
 	}
+};
+	struct Customer_struct transmitter = {
+	"transmitter",
+	{
+		LIGHT_BUTTON,
+		LIGHT_MINUTES10,
+		BLINK_LONGRANGETRANCEIVER,
+		BLINK_MINUTES10,
+		TRANCEIVER_BUTTON,
+		TRANSMITTER
+	}
+
 };

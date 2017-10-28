@@ -28,7 +28,7 @@
 
 void main(){
 	//Customer
-	struct Customer_struct customer = testLongRangeTranceiver;
+	struct Customer_struct customer = reciver;
 
 	initialConfigurationP16F887();
 
@@ -37,7 +37,7 @@ void main(){
 	buttonConfig(&millisecondCounter);
 	motionSensorConfig(&millisecondCounter);
 	duskGuardConfig(&millisecondCounter, &secondsCounter, 30);
-	longTranceiverConfig(&millisecondCounter,&secondsCounter);
+	longTranceiverConfig(&millisecondCounter,&secondsCounter,(transceiver_type) customer.ledsConfig.transceiver);
 
 	while(1)
 	{
