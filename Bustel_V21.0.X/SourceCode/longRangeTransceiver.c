@@ -22,43 +22,45 @@ static unsigned int begin1=0;
 static unsigned int begin2=0;
 static unsigned int begin3=0;
 static transceiver_type transType;
+static int initDone =0;
 
 // Registers the initial state
 void longTranceiverConfig(unsigned int *millisecondCounterPtr,unsigned int *secondCounterPtr, transceiver_type type)
 {
-	state=signalIn;
 	localMillisecondCounterPtr = millisecondCounterPtr;
 	localSecondCounterPtr = secondCounterPtr;
 	transType=type;
+	begin3 = *localSecondCounterPtr;
 }
 
 void updateLongRangeTranceiver(){
-	//New State
-	if(state != signalIn ){
-		// There is for some unknown reason always a state change in the beginning
-		state=signalIn;
-		if(firstStateChange==0)
-			firstStateChange=1;
-		else{
-			stateChange=1;
-			begin1 = *localSecondCounterPtr;
-				unsigned int var1 = *localSecondCounterPtr - begin2;
-			switch (transType) {
-				case RECEIVER:
-					amountOfOutSignals=amountOfOutSignals+1;
-					break;
-				case TRANSMITTER:
-					
-					if(var1<timeToReceiveAnswer)
-						answerReceived=1;
-					break;
-				default:
-					break;
-			
-			}
-			
+	unsigned int var4 = *localSecondCounterPtr - begin3;
+	if(var4>5 && initDone==0){
+			initDone=1;	
+			state=signalIn;
 		}
+	//New State
+	if((state != signalIn )&&(initDone == 1)){
+		// There is for some unknown reason always a state change in the beginning
 		
+		state=signalIn;
+		
+		stateChange=1;
+		begin1 = *localSecondCounterPtr;
+			unsigned int var1 = *localSecondCounterPtr - begin2;
+		switch (transType) {
+			case RECEIVER:
+				amountOfOutSignals=amountOfOutSignals+1;
+				break;
+			case TRANSMITTER:
+				
+				if(var1<timeToReceiveAnswer)
+					answerReceived=1;
+				break;
+			default:
+				break;
+		
+		}	
 	}
 	// Send out signals. There is a time delay here to give the transceiver time to reload
 	unsigned int var = *localSecondCounterPtr - begin1;
