@@ -9,7 +9,7 @@ static unsigned int *localSecondCounterPtr;
 static int ledLightOnFlag = 0; //State variable
 
 //LED Light output
-#define ledLightSignal				RC2
+#define ledLightSignal				RD6
 
 void ledLightConfig(unsigned int *secondCounterPtr, lightLength_type lightLength)
 {

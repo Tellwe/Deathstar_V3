@@ -10,7 +10,7 @@ static unsigned int *localMilliSecondCounterPtr;
 static int ledBlinkOn = 0; //State variable
 
 //LED Blink output
-#define ledBlinkSignal				RC1
+#define ledBlinkSignal				RD5
 
 
 void ledBlinkConfig(unsigned int *milliSecondCounterPtr, unsigned int *secondCounterPtr, blinkLength_type blinkLength)
