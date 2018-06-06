@@ -26,13 +26,11 @@ struct LedsConfig_struct{
 
 //Customer
 struct Customer_struct{
-	char name[30];	
 	struct LedsConfig_struct ledsConfig;
 };
 
 //Customer definitions
 struct Customer_struct debugCustomer = {
-	"DEBUG",
 	{
 		LIGHT_BUTTON,
 		LIGHT_MINUTES3,
@@ -40,17 +38,15 @@ struct Customer_struct debugCustomer = {
 		BLINK_MINUTES3
 	}
 };
-/*struct Customer_struct xtrafik = {
-	"XTrafik",
+struct Customer_struct xtrafik = {
 	{
 		LIGHT_BUTTON,
 		LIGHT_MINUTES5,
 		BLINK_BUTTON,
 		BLINK_MINUTES5
 	}
-};*/
+};
 struct Customer_struct xtrafik_pir = {
-	"XTrafik, PIR Trigger",
 	{
 		LIGHT_MOTION_SENSOR,
 		LIGHT_MINUTES5,
@@ -59,7 +55,6 @@ struct Customer_struct xtrafik_pir = {
 	}
 };
 struct Customer_struct varmlandsTrafikShelter = {
-	"VarmlandsTrafik Kur",
 	{
 		LIGHT_MOTION_SENSOR,
 		LIGHT_MINUTES2,
@@ -68,7 +63,6 @@ struct Customer_struct varmlandsTrafikShelter = {
 	}
 };
 struct Customer_struct varmlandsTrafikPost = {
-	"VarmlandsTrafik Stolpe",
 	{
 		LIGHT_BUTTON,
 		LIGHT_MINUTES10,
