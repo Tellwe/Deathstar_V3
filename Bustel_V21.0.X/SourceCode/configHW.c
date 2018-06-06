@@ -8,6 +8,7 @@ void initialConfigurationP16F887(){
     OSCCONbits.IRCF1 = 1; //set OSCCON IRCF bits to select OSC frequency=4Mhz
     OSCCONbits.IRCF0 = 0; //set OSCCON IRCF bits to select OSC frequency=4Mhz
     OSCCONbits.SCS = 1; //set the SCS bits to select internal oscillator block
+    OPTION_REGbits.nRBPU = 0;
 
 	//Init ports 
 	PORTA = 0x00;
@@ -18,11 +19,11 @@ void initialConfigurationP16F887(){
 
 	//Configure ports
 	TRISA = 0b00001011; //RA0 and RA1 inputs, RA2, RA4 and RA5 DI on transmitter
-	TRISB = 0b00111101; //RB3/AN9 Voltage Battery. RB5, RB1 inputs, RB3 and RB4 connected to transiver 
+	TRISB = 0b00100001; //RB3/AN9 Voltage Battery. RB5, RB1 inputs, RB3 and RB4 connected to transiver 
 	TRISC = 0b00010000; //RC4 connected to transiver
-	TRISD = 0b00000111; //RD0, RD1, RD2 for the brackets
+	TRISD = 0b00011111; //RD0, RD1, RD2 for the brackets
 	TRISE = 0b00000111; //RE1, RE2, RE3 connected to amp and volt measurements
-	
+	WPUB = 0b00000001;
 	ANSEL = 0b00000000; //Analog select
 	ANSELH = 0b00000000; //Analog Select
 	ANSELbits.ANS0 = 1;	//RA0 = analog input
@@ -57,7 +58,7 @@ void initialConfigurationP16F887(){
 	INTCONbits.PEIE = 1;	//Enable peripheal interrupts
 	PIE1bits.TMR1IE = 1;	//Enable overflow interrupt TMR1
 	INTCONbits.GIE = 1;  	//Enable all unmasked interrupts
-	IOCBbits.IOCB5 = 1;		//Enable interrupt on change for input RB5
+	//IOCBbits.IOCB5 = 1;		//Enable interrupt on change for input RB5
 
 	//Configuration of timers
 	T1CON = 0b00110000;
