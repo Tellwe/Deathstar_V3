@@ -25,7 +25,7 @@
 
 void main(){
 	//Customer
-	struct Customer_struct customer = xtrafik;
+	struct Customer_struct customer = debugCustomer;
 
 	initialConfigurationP16F887();
 
