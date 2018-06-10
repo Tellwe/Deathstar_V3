@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 //Configuration
-#include "config.h"
+#include "customerConfiguration.h"
 #include "configHW.h"
 
 //Abbreviations
@@ -25,7 +25,10 @@
 
 void main(){
 	//Customer
+
 	struct Customer_struct customer = debugCustomer;
+	//customerini();
+	initiateCustomers();
 
 	initialConfigurationP16F887();
 

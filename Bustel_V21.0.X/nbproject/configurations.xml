@@ -16,6 +16,7 @@
       <itemPath>SourceCode/rtc.h</itemPath>
       <itemPath>SourceCode/solarPanel.h</itemPath>
       <itemPath>SourceCode/transceiver.h</itemPath>
+      <itemPath>SourceCode/customerConfiguration.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -36,6 +37,7 @@
       <itemPath>SourceCode/rtc.c</itemPath>
       <itemPath>SourceCode/solarPanel.c</itemPath>
       <itemPath>SourceCode/transceiver.c</itemPath>
+      <itemPath>SourceCode/customerConfiguration.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -57,7 +59,7 @@
         <platformTool>PICkit2PlatformTool</platformTool>
         <languageToolchain>XC8</languageToolchain>
         <languageToolchainVersion>1.45</languageToolchainVersion>
-        <platform>2</platform>
+        <platform>3</platform>
       </toolsSet>
       <compileType>
         <linkerTool>

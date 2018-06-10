@@ -1,5 +1,11 @@
+#ifndef CUSTOMERCONFIGURATIONS_H
+#define CUSTOMERCONFIGURATIONS_H
+
 #include "ledBlink.h"
 #include "ledLight.h"
+
+//Functions
+void initiateCustomers();
 
 //Configuration layer
 typedef enum 
@@ -28,6 +34,10 @@ struct LedsConfig_struct{
 struct Customer_struct{
 	struct LedsConfig_struct ledsConfig;
 };
+
+//Array for all customers
+struct Customer_struct customers[16];
+
 
 //Customer definitions
 struct Customer_struct debugCustomer = {
@@ -70,3 +80,5 @@ struct Customer_struct varmlandsTrafikPost = {
 		BLINK_MINUTES10
 	}
 };
+
+#endif
