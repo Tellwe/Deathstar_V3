@@ -17,6 +17,7 @@
       <itemPath>SourceCode/solarPanel.h</itemPath>
       <itemPath>SourceCode/transceiver.h</itemPath>
       <itemPath>SourceCode/customerConfiguration.h</itemPath>
+      <itemPath>SourceCode/pianokeys.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -38,6 +39,7 @@
       <itemPath>SourceCode/solarPanel.c</itemPath>
       <itemPath>SourceCode/transceiver.c</itemPath>
       <itemPath>SourceCode/customerConfiguration.c</itemPath>
+      <itemPath>SourceCode/pianokeys.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

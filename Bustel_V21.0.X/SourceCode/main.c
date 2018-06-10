@@ -25,10 +25,9 @@
 
 void main(){
 	//Customer
-
-	struct Customer_struct customer = debugCustomer;
-	//customerini();
 	initiateCustomers();
+
+	struct Customer_struct customer = customers[pianoKeyNumber()];
 
 	initialConfigurationP16F887();
 
