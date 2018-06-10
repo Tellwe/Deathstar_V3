@@ -4,5 +4,5 @@
 #define pianoKeyInputPort	PORTD
 
 int pianoKeyNumber(){
-	return pianoKeyInputPort & 0b00011111; 
+	return ~PORTD & 0b00011111; 
 }

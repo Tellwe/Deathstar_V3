@@ -26,7 +26,6 @@
 void main(){
 	//Customer
 	initiateCustomers();
-
 	struct Customer_struct customer = customers[pianoKeyNumber()];
 
 	initialConfigurationP16F887();
@@ -35,7 +34,7 @@ void main(){
 	ledBlinkConfig(&millisecondCounter, &secondsCounter, (blinkLength_type) customer.ledsConfig.blinkLength);
 	buttonConfig(&millisecondCounter);
 	motionSensorConfig(&millisecondCounter);
-	duskGuardConfig(&millisecondCounter, &secondsCounter, 30);
+	duskGuardConfig(&millisecondCounter, &secondsCounter, 2);
 	transceiverConfig();
 
 	while(1)
