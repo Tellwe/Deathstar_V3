@@ -19,7 +19,7 @@ void initialConfigurationP16F887(){
 
 	//Configure ports
 	TRISA = 0b00001011; //RA0 and RA1 inputs, RA2, RA4 and RA5 DI on transmitter
-	TRISB = 0b00100001; //RB3/AN9 Voltage Battery. RB5, RB1 inputs, RB3 and RB4 connected to transiver 
+	TRISB = 0b00111001; //RB3/AN9 Voltage Battery. RB5, RB1 inputs, RB3 and RB4 connected to transiver 
 	TRISC = 0b00010000; //RC4 connected to transiver
 	TRISD = 0b00011111; //RD0, RD1, RD2 for the brackets
 	TRISE = 0b00000111; //RE1, RE2, RE3 connected to amp and volt measurements

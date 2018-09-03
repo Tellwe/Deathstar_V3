@@ -12,6 +12,8 @@
 
 void transceiverConfig(){
 
+	RB1 = 1;
+
 	transceiverConfigRegisterSet(GCONREG, 0x30);					//Set to the right frequency 
 	transceiverConfigRegisterSet(DMODREG,(0xA8)); 				//Set transiver into buffer mode
 	transceiverConfigRegisterSet(FDEVREG, 0x09);	//0x09			//Set the frequency deeviation to 40KHz
@@ -31,6 +33,7 @@ void transceiverConfig(){
 	transceiverConfigRegisterSet(GCONREG, (transceiverConfigRegisterRead(GCONREG)|0x01));
 
 	if(FindChannel() == 1);
+		RB1 = 0;
 	
 	SetRFMode(RF_SLEEP);
 }

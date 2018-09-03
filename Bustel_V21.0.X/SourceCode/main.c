@@ -45,6 +45,9 @@ void main(){
 		motionSensorUpdate();
 		duskGuardUpdate();
 
+		if(!RB0)
+			transceiverConfig();
+
 		switch (customer.ledsConfig.lightTrigger){
 			case LIGHT_OFF:
 				break;
