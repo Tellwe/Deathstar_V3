@@ -2,15 +2,20 @@
 #include <xc.h>
 
 //Driver for the Transceiver 
+//Variables for the transceiver
+static int wirelessId = 0;
+static int messageReceivedState = 0;
+static int RF_Mode = RF_STANDBY;
+static int driverUpdateState = 0;
+static int transceiverActive = 0;
+static unsigned int *localMilliSecondCounterPtr;
+static unsigned int delayTimestamp = 0;
 
-//Control signals for the transceiver
-#define irqoSignal		RB3
-#define irq1Signal		RB4
-#define csconSignal		RA4
-#define csdataSignal	RA5
 
 
-void transceiverConfig(){
+void transceiverConfig(int id, int isTransceiverActive, unsigned int *milliSecondCounterPtr)
+{
+	localMilliSecondCounterPtr = milliSecondCounterPtr;
 
 	transceiverConfigRegisterSet(GCONREG, 0x30);					//Set to the right frequency 
 	transceiverConfigRegisterSet(DMODREG,(0xA8)); 				//Set transiver into buffer mode
@@ -33,10 +38,81 @@ void transceiverConfig(){
 	if(FindChannel() == 1);
 	
 	SetRFMode(RF_SLEEP);
+
+	wirelessId = id;
+	transceiverActive = isTransceiverActive;
+	if(transceiverActive)
+		driverUpdateState = 1;
+
+
 }
 
 void transceiverUpdate(){
+	//Flow for receiver
+	if(!RF_MODE == RF_RECEIVER && transceiverActive){
+		if(driverUpdateState == 1){
+			SetRFMode(RF_STANDBY);
+			driverUpdateState = 2
+			delayTimestamp = *localMilliSecondCounterPtr;
+		}
+		if(driverUpdateState == 2){
+			if(*localMilliSecondCounterPtr - delayTimestamp > 10){
+				RegisterSet(FTPRIREG,(RegisterRead(FTPRIREG)|0x02));//Clear the bit for detection for the PLL Lock
+				SetRFMode(RF_SYNTHESIZER);							//Transiver into syntesize
+				delayTimestamp = *localMilliSecondCounterPtr;
+				driverUpdateState = 3
+			}
+			else
+				return;
+		}	
+		if(driverUpdateState == 3){
+			if((RegisterRead(FTPRIREG) & 0b00000010) == 1)
+				driverUpdateState = 4
+			else if(*localMilliSecondCounterPtr - delayTimestamp > 5000)
+				FindChannel();
+				driverUpdateState = 4
+			else 
+				return;
+		}
+		if(driverUpdateState == 4){
+			SetRFMode(RF_RECEIVER);
+			delayTimestamp = *localMilliSecondCounterPtr;
+			driverUpdateState = 1;			
+		}
+	}
 
+
+
+
+	//If message received on the receiver
+	if(irq1Signal && RF_MODE == RF_RECEIVER){	
+		unsigned char Data[30];//Char string containing the data received from the transiver
+		if(driverUpdateState == 10)
+			delayTimestamp = *localMilliSecondCounterPtr;
+			SetRFMode(RF_STANDBY);
+			int i = 0;
+			for (int j = 0; j < 30; ++j)
+			{
+				Data[j] = 0;
+			}
+			while(irqoSignal && *localMilliSecondCounterPtr - delayTimestamp < 4000)							//Read the FIFO from the transiver until the FIFO is empty 
+			{
+				Data[i] = ReadFIFO();				//Place bytes in the string for received data
+				i++;
+			}
+			SetRFMode(RF_SLEEP);								//Set the transiver into sleep-mode	
+
+		if(Data[0] == STARTCHAR && Data[3] == ENDCHAR)
+		{
+			if(Data[1] == BUSSIGNAL)
+			{
+				if((Data[2] == NODE1 && wirelessId == 1) || (Data[2] == NODE2 && wirelessId == 2) || (Data[2] == NODE3 && wirelessId == 3))
+					messageReceivedState = 1;
+			} 
+		}
+
+
+	}
 }
 
 void transceiverConfigRegisterSet(unsigned char adress, unsigned char value)
@@ -79,23 +155,23 @@ void SetRFMode(unsigned char mode)
 	switch (mode) {
 		case RF_TRANSMITTER:
 			transceiverConfigRegisterSet(REG_MCPARAM0, (mcparam0_read & 0x1F) | RF_TRANSMITTER);
-			//RF_Mode = RF_TRANSMITTER;				//RF in TX mode
+			RF_Mode = RF_TRANSMITTER;				//RF in TX mode
 			break;
 		case RF_RECEIVER:
 			transceiverConfigRegisterSet(REG_MCPARAM0, (mcparam0_read & 0x1F) | RF_RECEIVER);
-			//RF_Mode = RF_RECEIVER;					//RF in RX mode
+			RF_Mode = RF_RECEIVER;					//RF in RX mode
 			break;
 		case RF_SYNTHESIZER:
 			transceiverConfigRegisterSet(REG_MCPARAM0, (mcparam0_read & 0x1F) | RF_SYNTHESIZER);
-			//RF_Mode = RF_SYNTHESIZER;				//RF in Synthesizer mode
+			RF_Mode = RF_SYNTHESIZER;				//RF in Synthesizer mode
 			break;
 		case RF_STANDBY:
 			transceiverConfigRegisterSet(REG_MCPARAM0, (mcparam0_read & 0x1F) | RF_STANDBY);
-			//RF_Mode = RF_STANDBY;					//RF in standby mode
+			RF_Mode = RF_STANDBY;					//RF in standby mode
 			break;
 		case RF_SLEEP:
 			transceiverConfigRegisterSet(REG_MCPARAM0, (mcparam0_read & 0x1F) | RF_SLEEP);
-			//RF_Mode = RF_SLEEP;						//RF in sleep mode
+			RF_Mode = RF_SLEEP;						//RF in sleep mode
 			break;
 	} /* end switch (mode) */
 	csconSignal = 1;
@@ -132,4 +208,14 @@ char FindChannel(void)
 		
 	}
 return 0;	
+}
+int isMessageReceived()
+{
+	if(messageReceivedState = 1)
+	{
+		messageReceivedState = 0;
+		return 1;
+	}
+	else
+		return 0;
 }

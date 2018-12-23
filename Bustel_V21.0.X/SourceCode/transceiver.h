@@ -13,9 +13,6 @@ unsigned char readByteFromSPI(void);
 
 #define _XTAL_FREQ 4000000
 
-
-
-
 //Used in function for channel find
 //Values in arrays calculated from matlab for 868,32MHZ
 const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
@@ -23,6 +20,26 @@ const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,11
 const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
 
 char isChannelFound = 0;    //Used in the function FindChannel, if the PLL-lock is ok the bit will be set
+
+
+//Control signals for the transceiver
+#define irqoSignal		RB3
+#define irq1Signal		RB4
+#define csconSignal		RA4
+#define csdataSignal	RA5
+
+//Topics
+#define	BUSSIGNAL		2
+
+//Values
+#define NODE1			1
+#define NODE2			2
+#define NODE3			3
+#define NODE4			4
+
+//Other wireless data
+#define STARTCHAR		44
+#define ENDCHAR			55
 
 /********************************************************************
 MRF89XA Operating modes

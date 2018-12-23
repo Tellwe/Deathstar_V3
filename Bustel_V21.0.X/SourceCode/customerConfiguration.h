@@ -19,7 +19,8 @@ typedef enum
 { 
 	BLINK_OFF = 0,
 	BLINK_MOTION_SENSOR,
-	BLINK_BUTTON
+	BLINK_BUTTON,
+	BLINK_RECEIVER
 } blinkTrigger_type;
 
 //Application layer

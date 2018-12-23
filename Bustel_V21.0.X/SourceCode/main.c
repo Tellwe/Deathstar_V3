@@ -44,6 +44,7 @@ void main(){
 		buttonUpdate();
 		motionSensorUpdate();
 		duskGuardUpdate();
+		transceiverUpdate();
 
 		switch (customer.ledsConfig.lightTrigger){
 			case LIGHT_OFF:
@@ -78,6 +79,10 @@ void main(){
 				{
 					ledBlinkStart();
 				}
+				break;
+			case BLINK_RECEIVER:
+				if(isMessageReceived() == 1)
+					ledBlinkStart();
 				break;
 			default:
 				break;
