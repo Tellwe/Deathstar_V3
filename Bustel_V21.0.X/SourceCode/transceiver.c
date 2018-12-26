@@ -1,5 +1,6 @@
 #include "transceiver.h"
 #include <xc.h>
+#include <string.h>
 
 //Driver for the Transceiver 
 //Variables for the transceiver
@@ -10,6 +11,7 @@ static int driverUpdateState = 0;
 static int transceiverActive = 0;
 static unsigned int *localMilliSecondCounterPtr;
 static unsigned int delayTimestamp = 0;
+static unsigned int timeoutTransmissionTS = 0;
 
 
 
@@ -43,16 +45,14 @@ void transceiverConfig(int id, int isTransceiverActive, unsigned int *milliSecon
 	transceiverActive = isTransceiverActive;
 	if(transceiverActive)
 		driverUpdateState = 1;
-
-
 }
-
-void transceiverUpdate(){
+void transceiverUpdate()
+{
 	//Flow for receiver
-	if(!RF_MODE == RF_RECEIVER && transceiverActive){
+	if(RF_Mode != RF_RECEIVER && transceiverActive){
 		if(driverUpdateState == 1){
 			SetRFMode(RF_STANDBY);
-			driverUpdateState = 2
+			driverUpdateState = 2;
 			delayTimestamp = *localMilliSecondCounterPtr;
 		}
 		if(driverUpdateState == 2){
@@ -60,19 +60,29 @@ void transceiverUpdate(){
 				RegisterSet(FTPRIREG,(RegisterRead(FTPRIREG)|0x02));//Clear the bit for detection for the PLL Lock
 				SetRFMode(RF_SYNTHESIZER);							//Transiver into syntesize
 				delayTimestamp = *localMilliSecondCounterPtr;
-				driverUpdateState = 3
+				driverUpdateState = 3;
 			}
 			else
 				return;
 		}	
 		if(driverUpdateState == 3){
-			if((RegisterRead(FTPRIREG) & 0b00000010) == 1)
-				driverUpdateState = 4
+			if((RegisterRead(FTPRIREG) & 0b00000010) != 0)
+			{
+				RD5 = 1;
+                __delay_ms(500);
+                RD5 = 0;
+                __delay_ms(500);
+				driverUpdateState = 4;
+			}
 			else if(*localMilliSecondCounterPtr - delayTimestamp > 5000)
+			{
 				FindChannel();
-				driverUpdateState = 4
+				driverUpdateState = 4;
+			}
 			else 
+			{
 				return;
+			}
 		}
 		if(driverUpdateState == 4){
 			SetRFMode(RF_RECEIVER);
@@ -85,7 +95,7 @@ void transceiverUpdate(){
 
 
 	//If message received on the receiver
-	if(irq1Signal && RF_MODE == RF_RECEIVER){	
+	if(irq1Signal && RF_Mode == RF_RECEIVER){	
 		unsigned char Data[30];//Char string containing the data received from the transiver
 		if(driverUpdateState == 10)
 			delayTimestamp = *localMilliSecondCounterPtr;
@@ -102,6 +112,18 @@ void transceiverUpdate(){
 			}
 			SetRFMode(RF_SLEEP);								//Set the transiver into sleep-mode	
 
+		//Backward compatibility for the old transmitters
+		//Check data to se what command that has been sent 
+		if((strstr(Data, "N1BLINK")) && (wirelessId == 1))					//Requsted node == 1
+		{
+			messageReceivedState = 1;		
+		}
+		else if((strstr(Data, "N2BLINK")) && (wirelessId == 2))				//Requested node == 2
+		{
+			messageReceivedState = 1;
+		}
+		//End of backward compatibility
+
 		if(Data[0] == STARTCHAR && Data[3] == ENDCHAR)
 		{
 			if(Data[1] == BUSSIGNAL)
@@ -113,6 +135,58 @@ void transceiverUpdate(){
 
 
 	}
+}
+void TransmittPacket(unsigned char topic, unsigned char value)
+{
+	timeoutTransmissionTS = *localMilliSecondCounterPtr;
+	int i = 0;
+
+	//Initiation of transmitt sequence
+		SetRFMode(RF_STANDBY);								//Transiver into Standby
+		__delay_ms(10);										//Wait for oscillator to wake up
+		RegisterSet(FTPRIREG,(RegisterRead(FTPRIREG)|0x02));//Clear the bit for detection for the PLL Lock
+		SetRFMode(RF_SYNTHESIZER);							//Transiver into syntesize
+		while((RegisterRead(FTPRIREG) & 0b00000010) == 0)	//Wait for the PLL to lock
+		{
+			if(*localMilliSecondCounterPtr - timeoutTransmissionTS > 5000)
+			{
+				FindChannel();
+				break;	
+			}
+			
+		}
+		SetRFMode(RF_TRANSMITTER);							//Set the transiver into tranmitt mode
+		__delay_us(500);									//Transmitter wake-up time
+
+
+		WriteFIFO('S');
+		WriteFIFO('Y');
+		WriteFIFO('N');
+		WriteFIFO('C');
+		WriteFIFO('N');
+		WriteFIFO('1');
+		WriteFIFO('B');
+		WriteFIFO('L');
+		WriteFIFO('I');
+		WriteFIFO('N');
+		WriteFIFO('K');
+		
+	//Transmitt data packet
+//		WriteFIFO(STARTCHAR);
+//		WriteFIFO(topic);
+//		WriteFIFO(value);
+//		WriteFIFO(ENDCHAR);
+
+	//wait for transmitt done, set the transiver back to sleep
+		while(!irq1Signal)
+		{
+			if(*localMilliSecondCounterPtr - timeoutTransmissionTS > 5000)
+				break;
+		}
+		__delay_us(10);
+		SetRFMode(RF_SLEEP);
+		__delay_ms(50);
+
 }
 
 void transceiverConfigRegisterSet(unsigned char adress, unsigned char value)
@@ -146,6 +220,38 @@ unsigned char readByteFromSPI(void)
 {
  	writeByteToSPI(0x00);
     return SSPBUF; 
+}
+void RegisterSet(unsigned char adress, unsigned char value)
+{
+    csconSignal = 0;
+    adress = (adress<<1);
+    writeByteToSPI(adress);
+    writeByteToSPI(value);
+    csconSignal = 1;
+}
+unsigned char RegisterRead(unsigned char adress)
+{
+	unsigned char value;
+    csconSignal = 0;
+    adress = ((adress<<1)|0x40);
+    writeByteToSPI(adress); 
+	value = readByteFromSPI();
+    csconSignal = 1;
+	return value;
+}
+unsigned char ReadFIFO(void)
+{
+	unsigned char value;
+    csdataSignal = 0;
+	value = readByteFromSPI();
+    csdataSignal = 1;
+	return value;
+}
+void WriteFIFO(unsigned char Data)
+{
+    csdataSignal = 0;
+    writeByteToSPI(Data);
+    csdataSignal = 1;
 }
 void SetRFMode(unsigned char mode)
 {
@@ -207,11 +313,11 @@ char FindChannel(void)
 		
 		
 	}
-return 0;	
+	return 0;	
 }
 int isMessageReceived()
 {
-	if(messageReceivedState = 1)
+	if(messageReceivedState == 1)
 	{
 		messageReceivedState = 0;
 		return 1;

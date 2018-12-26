@@ -35,7 +35,11 @@ void main(){
 	buttonConfig(&millisecondCounter);
 	motionSensorConfig(&millisecondCounter);
 	duskGuardConfig(&millisecondCounter, &secondsCounter, 2);
-	transceiverConfig();
+	if(customer.ledsConfig.blinkTrigger == BLINK_RECEIVER)
+	{
+		transceiverConfig(1, 1, &millisecondCounter);
+	}
+
 
 	while(1)
 	{
@@ -84,6 +88,9 @@ void main(){
 				if(isMessageReceived() == 1)
 					ledBlinkStart();
 				break;
+			case BLINK_TRANSMITTER:
+				if(isButtonPushed() == 1)
+					TransmittPacket(BUSSIGNAL, NODE1);
 			default:
 				break;
 		}
@@ -123,3 +130,4 @@ void interrupt tc_int(void){
 	GIE = 1;			//Re-enable interrupts
 return;
 } 
+

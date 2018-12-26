@@ -7,5 +7,7 @@ void initiateCustomers(){
 	customers[2] = xtrafik_pir;
 	customers[3] = varmlandsTrafikShelter;
 	customers[4] = varmlandsTrafikPost;
+	customers[5] = debugWireless;
+	customers[6] = debugWirelessTrans;
 
 }

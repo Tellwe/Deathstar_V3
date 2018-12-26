@@ -2,14 +2,21 @@
 #define TRANSCEIVER_H
 
 //Functions for the driver
-void transceiverConfig();
+void transceiverConfig(int id, int isTransceiverActive, unsigned int *milliSecondCounterPtr);
 void transceiverUpdate();
+void TransmittPacket(unsigned char topic, unsigned char value);
 void transceiverConfigRegisterSet(unsigned char address, unsigned char value);			//Programs the MRF89XA register address with passing value
 unsigned char transceiverConfigRegisterRead(unsigned char address);					//returns register value (for that register address)
-void SetRFMode(unsigned char mode);								//Program RF mode
-char FindChannel(void);
 void writeByteToSPI(unsigned char databyte);
 unsigned char readByteFromSPI(void);
+void RegisterSet(unsigned char adress, unsigned char value);
+unsigned char RegisterRead(unsigned char adress);
+unsigned char ReadFIFO(void);
+void WriteFIFO(unsigned char Data);
+void SetRFMode(unsigned char mode);								//Program RF mode
+char FindChannel(void);
+int isMessageReceived();
+
 
 #define _XTAL_FREQ 4000000
 

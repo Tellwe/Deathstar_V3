@@ -20,7 +20,8 @@ typedef enum
 	BLINK_OFF = 0,
 	BLINK_MOTION_SENSOR,
 	BLINK_BUTTON,
-	BLINK_RECEIVER
+	BLINK_RECEIVER,
+	BLINK_TRANSMITTER
 } blinkTrigger_type;
 
 //Application layer
@@ -81,5 +82,20 @@ struct Customer_struct varmlandsTrafikPost = {
 		BLINK_MINUTES10
 	}
 };
-
+struct Customer_struct debugWireless = {
+	{
+		LIGHT_BUTTON,
+		LIGHT_MINUTES3,
+		BLINK_RECEIVER,
+		BLINK_MINUTES3
+	}
+};
+struct Customer_struct debugWirelessTrans = {
+	{
+		LIGHT_BUTTON,
+		LIGHT_MINUTES3,
+		BLINK_TRANSMITTER,
+		BLINK_MINUTES3
+	}
+};
 #endif
