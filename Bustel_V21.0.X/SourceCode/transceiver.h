@@ -1,8 +1,20 @@
 #ifndef TRANSCEIVER_H
 #define TRANSCEIVER_H
 
+
+
+typedef enum 
+{ 
+	NODE1 = 0,
+	NODE2,
+	NODE3,
+	NODE4
+} transceiverNode_type;
+ 
+
+
 //Functions for the driver
-void transceiverConfig(int id, int isTransceiverActive, unsigned int *milliSecondCounterPtr);
+void transceiverConfig(transceiverNode_type transceiverNode, int isTransceiverActive, unsigned int *milliSecondCounterPtr);
 void transceiverUpdate();
 void transceiverConfigRegisterSet(unsigned char address, unsigned char value);			//Programs the MRF89XA register address with passing value
 unsigned char transceiverConfigRegisterRead(unsigned char address);					//returns register value (for that register address)
@@ -18,6 +30,8 @@ int isStartTriggerReceived();
 int isTriggerConfirmationReceived();
 int isDataToSend();
 void sendData(unsigned char topic, unsigned char value);
+
+
 
 
 

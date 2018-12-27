@@ -31,7 +31,7 @@ static unsigned int itemsInTransmissionBuffer = 10; //The same as the number of 
 
 
 
-void transceiverConfig(int id, int isTransceiverActive, unsigned int *milliSecondCounterPtr)
+void transceiverConfig(transceiverNode_type transceiverNode, int isTransceiverActive, unsigned int *milliSecondCounterPtr)
 {
 	localMilliSecondCounterPtr = milliSecondCounterPtr;
 
@@ -57,7 +57,22 @@ void transceiverConfig(int id, int isTransceiverActive, unsigned int *milliSecon
 	
 	SetRFMode(RF_SLEEP);
 
-	wirelessId = id;
+	switch (transceiverNode)
+	{
+		case NODE1:
+			wirelessId = 1;
+			break;
+		case NODE2:
+			wirelessId = 2;
+			break;
+		case NODE3:
+			wirelessId = 3;
+			break;
+		case NODE4:
+			wirelessId = 4;
+			break;
+	}
+
 	transceiverActive = isTransceiverActive;
 	if(transceiverActive)
 	{
@@ -148,10 +163,8 @@ void transceiverUpdate()
 		{
 			if(Data[1] == BUSSIGNAL)
 			{
-				if((Data[2] == NODE1 && wirelessId == 1) || (Data[2] == NODE2 && wirelessId == 2) || (Data[2] == NODE3 && wirelessId == 3))
+				if((Data[2] == NODE1 && wirelessId == 1) || (Data[2] == NODE2 && wirelessId == 2) || (Data[2] == NODE3 && wirelessId == 3) || (Data[2] == NODE4 && wirelessId == 4))
 					messageReceivedState = 1;
-				if((Data[2] == NODE1STARTED && wirelessId == 1) || (Data[2] == NODE2STARTED && wirelessId == 2) || (Data[2] == NODE3STARTED && wirelessId == 3))
-					startTriggerReceivedState = 1;
 			} 
 			lastMessageReceivedTS = *localMilliSecondCounterPtr;							//TS to make sure that new message is not sent to soon after message received.
 			bOkToTransmitt = 0;

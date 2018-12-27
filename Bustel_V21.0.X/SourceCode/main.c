@@ -35,9 +35,9 @@ void main(){
 	buttonConfig(&millisecondCounter);
 	motionSensorConfig(&millisecondCounter);
 	duskGuardConfig(&millisecondCounter, &secondsCounter, 2);
-	if((customer.ledsConfig.blinkTrigger == BLINK_RECEIVER) || (customer.ledsConfig.blinkTrigger == BLINK_TRANSMITTER))
+	if((customer.ledsConfig.blinkTrigger == BLINK_RECEIVER) || (customer.ledsConfig.blinkTrigger == BLINK_TRANSMITTER_PIR) || (customer.ledsConfig.blinkTrigger == BLINK_TRANSMITTER_BUTTON))
 	{
-		transceiverConfig(1, 1, &millisecondCounter);
+		transceiverConfig(customer.ledsConfig.transceiverNode, 1, &millisecondCounter);
 	}
 
 
@@ -90,15 +90,22 @@ void main(){
 					ledBlinkStart();
 					if(isDataToSend() == 0)
 					{
-						sendData(BUSSIGNAL, NODE1STARTED);
+						sendData(BUSSIGNAL, customer.ledsConfig.transceiverNode);
 					}			
 				}
 				break;
-			case BLINK_TRANSMITTER:
+			case BLINK_TRANSMITTER_PIR:
 				if(isMotionDetected() == 1 && isDataToSend() == 0)
-					sendData(BUSSIGNAL, NODE1);
-				if(isTriggerConfirmationReceived() == 1)
+					sendData(BUSSIGNAL, customer.ledsConfig.transceiverNode);
+				if(isStartTriggerReceived() == 1)
 					ledBlinkStart();
+				break;
+			case BLINK_TRANSMITTER_BUTTON:
+				if(isButtonPushed() == 1 && isDataToSend() == 0)
+					sendData(BUSSIGNAL, customer.ledsConfig.transceiverNode);
+				if(isStartTriggerReceived() == 1)
+					ledBlinkStart();
+				break;
 			default:
 				break;
 		}
