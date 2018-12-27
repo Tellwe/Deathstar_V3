@@ -91,12 +91,11 @@ void main(){
 					if(isDataToSend() == 0)
 					{
 						sendData(BUSSIGNAL, NODE1STARTED);
-					}
-						
+					}			
 				}
 				break;
 			case BLINK_TRANSMITTER:
-				if(isButtonPushed() == 1 && isDataToSend() == 0)
+				if(isMotionDetected() == 1 && isDataToSend() == 0)
 					sendData(BUSSIGNAL, NODE1);
 				if(isTriggerConfirmationReceived() == 1)
 					ledBlinkStart();
