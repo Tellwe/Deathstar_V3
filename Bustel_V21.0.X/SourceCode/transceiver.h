@@ -4,7 +4,6 @@
 //Functions for the driver
 void transceiverConfig(int id, int isTransceiverActive, unsigned int *milliSecondCounterPtr);
 void transceiverUpdate();
-void TransmittPacket(unsigned char topic, unsigned char value);
 void transceiverConfigRegisterSet(unsigned char address, unsigned char value);			//Programs the MRF89XA register address with passing value
 unsigned char transceiverConfigRegisterRead(unsigned char address);					//returns register value (for that register address)
 void writeByteToSPI(unsigned char databyte);
@@ -17,6 +16,10 @@ void SetRFMode(unsigned char mode);								//Program RF mode
 char FindChannel(void);
 int isStartTriggerReceived();
 int isTriggerConfirmationReceived();
+int isDataToSend();
+void sendData(unsigned char topic, unsigned char value);
+
+
 
 
 

@@ -12,7 +12,6 @@
 
 //Global variables
 #include "globals.h"
-#include "GenericTypeDefs.h"
 //Drivers
 #include "button.h"
 #include "ledBlink.h"
@@ -89,12 +88,16 @@ void main(){
 				if(isStartTriggerReceived() == 1)
 				{
 					ledBlinkStart();
-					TransmittPacket(BUSSIGNAL, NODE1STARTED);	
+					if(isDataToSend() == 0)
+					{
+						sendData(BUSSIGNAL, NODE1STARTED);
+					}
+						
 				}
 				break;
 			case BLINK_TRANSMITTER:
-				if(isButtonPushed() == 1)
-					TransmittPacket(BUSSIGNAL, NODE1);
+				if(isButtonPushed() == 1 && isDataToSend() == 0)
+					sendData(BUSSIGNAL, NODE1);
 				if(isTriggerConfirmationReceived() == 1)
 					ledBlinkStart();
 			default:
