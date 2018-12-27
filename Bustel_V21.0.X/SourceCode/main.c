@@ -12,6 +12,7 @@
 
 //Global variables
 #include "globals.h"
+#include "GenericTypeDefs.h"
 //Drivers
 #include "button.h"
 #include "ledBlink.h"
@@ -35,7 +36,7 @@ void main(){
 	buttonConfig(&millisecondCounter);
 	motionSensorConfig(&millisecondCounter);
 	duskGuardConfig(&millisecondCounter, &secondsCounter, 2);
-	if(customer.ledsConfig.blinkTrigger == BLINK_RECEIVER)
+	if((customer.ledsConfig.blinkTrigger == BLINK_RECEIVER) || (customer.ledsConfig.blinkTrigger == BLINK_TRANSMITTER))
 	{
 		transceiverConfig(1, 1, &millisecondCounter);
 	}
@@ -85,12 +86,17 @@ void main(){
 				}
 				break;
 			case BLINK_RECEIVER:
-				if(isMessageReceived() == 1)
+				if(isStartTriggerReceived() == 1)
+				{
 					ledBlinkStart();
+					TransmittPacket(BUSSIGNAL, NODE1STARTED);	
+				}
 				break;
 			case BLINK_TRANSMITTER:
 				if(isButtonPushed() == 1)
 					TransmittPacket(BUSSIGNAL, NODE1);
+				if(isTriggerConfirmationReceived() == 1)
+					ledBlinkStart();
 			default:
 				break;
 		}

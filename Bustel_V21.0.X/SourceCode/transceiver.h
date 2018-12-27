@@ -15,7 +15,10 @@ unsigned char ReadFIFO(void);
 void WriteFIFO(unsigned char Data);
 void SetRFMode(unsigned char mode);								//Program RF mode
 char FindChannel(void);
-int isMessageReceived();
+int isStartTriggerReceived();
+int isTriggerConfirmationReceived();
+
+
 
 
 #define _XTAL_FREQ 4000000
@@ -43,6 +46,10 @@ char isChannelFound = 0;    //Used in the function FindChannel, if the PLL-lock 
 #define NODE2			2
 #define NODE3			3
 #define NODE4			4
+#define NODE1STARTED	11
+#define NODE2STARTED	12
+#define NODE3STARTED	13
+#define NODE4STARTED	14
 
 //Other wireless data
 #define STARTCHAR		44

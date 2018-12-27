@@ -18,6 +18,7 @@
       <itemPath>SourceCode/transceiver.h</itemPath>
       <itemPath>SourceCode/customerConfiguration.h</itemPath>
       <itemPath>SourceCode/pianokeys.h</itemPath>
+      <itemPath>SourceCode/GenericTypeDefs.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
