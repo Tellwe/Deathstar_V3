@@ -41,7 +41,7 @@ struct Customer_struct{
 };
 
 //Array for all customers
-struct Customer_struct customers[16];
+    struct Customer_struct customers[16];
 
 
 //Customer definitions
