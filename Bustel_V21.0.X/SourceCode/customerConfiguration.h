@@ -49,12 +49,12 @@ struct Customer_struct{
 //Customer XTrafik
 //Uncommment block in this file + customerConfiguration.c	
 //*******************************************************************
-
+/*
 struct Customer_struct xtrafik = {
 	{
 		LIGHT_BUTTON,
 		LIGHT_MINUTES5,
-		BLINK_BUTTON,
+		BLINK_MOTION_SENSOR,
 		BLINK_MINUTES5,
 		NODE1
 	}
@@ -123,12 +123,12 @@ struct Customer_struct wirelessTransmitterButton5MinN2 = {
 	}
 };
 //*******************************************************************
-
+*/
 
 //Customer Värmlandstrafik
 //Uncommment block in this file + customerConfiguration.c	
 //*******************************************************************
-/*
+
 struct Customer_struct varmlandsTrafikShelter = {
 	{
 		LIGHT_MOTION_SENSOR,
@@ -227,7 +227,7 @@ struct Customer_struct wirelessTransmitterButton10MinPIR2MinN2 = {
 		BLINK_MINUTES10,
 		NODE2
 	}
-};*/
+};
 //*******************************************************************
 
 
