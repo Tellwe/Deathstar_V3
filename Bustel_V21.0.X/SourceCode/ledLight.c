@@ -10,6 +10,8 @@ static int ledLightOnFlag = 0; //State variable
 
 //LED Light output
 #define ledLightSignal				RD6
+#define ledLightSignalSlave			RD7
+
 
 void ledLightConfig(unsigned int *secondCounterPtr, lightLength_type lightLength)
 {
@@ -60,10 +62,14 @@ int ledLightUpdate()
 	if(*localSecondCounterPtr == (lightStartTimeStamp + ledOnTimeInMinutes * 60))
 		ledLightStop();
 
-	if(ledLightOnFlag == 1)
+	if(ledLightOnFlag == 1){
 		ledLightSignal = 1;
-	else 
+		ledLightSignalSlave = 1;
+	}
+	else {
 		ledLightSignal = 0;
+		ledLightSignalSlave = 0;
+	}
 
 
 	return 0;

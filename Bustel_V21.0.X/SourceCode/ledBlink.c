@@ -11,7 +11,7 @@ static int ledBlinkOn = 0; //State variable
 
 //LED Blink output
 #define ledBlinkSignal				RD5
-#define ledBlinkSignalSlave			RD7
+//#define ledBlinkSignalSlave			RD7
 
 
 void ledBlinkConfig(unsigned int *milliSecondCounterPtr, unsigned int *secondCounterPtr, blinkLength_type blinkLength)
@@ -63,11 +63,11 @@ int ledBlinkUpdate()
 
 	if(ledBlinkOn == 1 && *localMilliSecondCounterPtr >= 500){
 		ledBlinkSignal = 1;
-		ledBlinkSignalSlave = 1;
+//		ledBlinkSignalSlave = 1;
 	}
 	else {
 		ledBlinkSignal = 0;
-		ledBlinkSignalSlave = 0;
+//		ledBlinkSignalSlave = 0;
 	}
 
 
