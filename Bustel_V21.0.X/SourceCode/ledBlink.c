@@ -61,7 +61,7 @@ int ledBlinkUpdate()
 	if(*localSecondCounterPtr == (blinkStartTimeStamp + ledOnTimeInMinutes * 60))
 		ledBlinkStop();
 
-	if(ledBlinkOn == 1 && *localMilliSecondCounterPtr >= 500){
+	if(ledBlinkOn == 1){
 		ledBlinkSignal = 1;
 		ledBlinkSignalSlave = 1;
 	}
