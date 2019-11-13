@@ -57,18 +57,30 @@ int ledBlinkStart()
 }
 int ledBlinkUpdate()
 {
+//Function update 20191113:
+//Add that LightC (ledBLinkSignalSlave) waits for 1 second, then 
+//goes high for one second and then goes off for the remainder of the active cycle
+
 
 	if(*localSecondCounterPtr == (blinkStartTimeStamp + ledOnTimeInMinutes * 60))
 		ledBlinkStop();
 
 	if(ledBlinkOn == 1){
 		ledBlinkSignal = 1;
-		ledBlinkSignalSlave = 1;
+	
+		if(*localSecondCounterPtr == (blinkStartTimeStamp + 1))
+			ledBlinkSignalSlave = 1;
+		if(*localSecondCounterPtr == (blinkStartTimeStamp + 2))
+			ledBlinkSignalSlave = 0;
+
+
 	}
 	else {
 		ledBlinkSignal = 0;
-		ledBlinkSignalSlave = 0;
 	}
+
+
+
 
 
 	return 0;
