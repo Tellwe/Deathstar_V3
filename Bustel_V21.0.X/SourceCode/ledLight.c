@@ -14,7 +14,10 @@ static int ledLightOnFlag = 0; //State variable
 void ledLightConfig(unsigned int *secondCounterPtr, lightLength_type lightLength)
 {
 	localSecondCounterPtr = secondCounterPtr;
-	lightLength_type localLightLength = lightLength;
+//Special fix for long range unit. Light function is off allways.
+
+//	lightLength_type localLightLength = lightLength;
+	lightLength_type localLightLength = LIGHT_LENGTH_OFF;
 	
 	switch (localLightLength) {
 		case LIGHT_LENGTH_OFF:
