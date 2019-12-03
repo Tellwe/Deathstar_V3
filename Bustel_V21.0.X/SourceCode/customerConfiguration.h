@@ -132,7 +132,7 @@ struct Customer_struct wirelessTransmitterButton5MinN2 = {
 struct Customer_struct varmlandsTrafikShelter = {
 	{
 		LIGHT_MOTION_SENSOR,
-		LIGHT_MINUTES2,
+		LIGHT_MINUTES10,
 		BLINK_BUTTON,
 		BLINK_MINUTES10,
 		NODE1
