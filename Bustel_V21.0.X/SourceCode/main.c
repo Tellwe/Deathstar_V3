@@ -46,7 +46,7 @@ void main(){
 	//Have the system do a 1s pulse 2s after boot-up on Light B (RD6)
 	__delay_ms(2000);
 	RD6 = 1;
-	__delay_ms(1000);
+	__delay_ms(100);
 	RD6 = 0;
 
 

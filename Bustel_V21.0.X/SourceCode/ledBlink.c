@@ -1,4 +1,4 @@
-#include "definitions.h"
+ #include "definitions.h"
 #include "ledBlink.h"
 
 //Driver for the Blink LED
@@ -68,9 +68,9 @@ int ledBlinkUpdate()
 	if(ledBlinkOn == 1){
 		ledBlinkSignal = 1;
 	
-		if(*localSecondCounterPtr == (blinkStartTimeStamp + 1))
-			ledBlinkSignalSlave = 1;
 		if(*localSecondCounterPtr == (blinkStartTimeStamp + 2))
+			ledBlinkSignalSlave = 1;
+		if(*localSecondCounterPtr == (blinkStartTimeStamp + 3))
 			ledBlinkSignalSlave = 0;
 
 
