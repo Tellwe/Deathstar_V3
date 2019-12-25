@@ -5,6 +5,7 @@
 
 static unsigned int ledOnTimeInMinutes = 0;
 static unsigned int blinkStartTimeStamp = 0;
+static unsigned int blinkStartTimeStampMs = 0;
 static unsigned int *localSecondCounterPtr;
 static unsigned int *localMilliSecondCounterPtr;
 static int ledBlinkOn = 0; //State variable
@@ -47,6 +48,7 @@ int ledBlinkStart()
 	if(ledBlinkOn == 0)
 	{
 		blinkStartTimeStamp = *localSecondCounterPtr;
+		blinkStartTimeStampMs = *localMilliSecondCounterPtr;
 		ledBlinkOn = 1; //Turn on the LED
 		return 0;
 	}
@@ -68,9 +70,9 @@ int ledBlinkUpdate()
 	if(ledBlinkOn == 1){
 		ledBlinkSignal = 1;
 	
-		if(*localSecondCounterPtr == (blinkStartTimeStamp + 2))
+		if((*localMilliSecondCounterPtr == blinkStartTimeStampMs) && (*localSecondCounterPtr == (blinkStartTimeStamp + 1)))
 			ledBlinkSignalSlave = 1;
-		if(*localSecondCounterPtr == (blinkStartTimeStamp + 3))
+		if((*localMilliSecondCounterPtr == (blinkStartTimeStampMs + 100)) && (*localSecondCounterPtr == (blinkStartTimeStamp + 1)))
 			ledBlinkSignalSlave = 0;
 
 
