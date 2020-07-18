@@ -70,15 +70,16 @@ int ledBlinkUpdate()
 	if(ledBlinkOn == 1){
 		ledBlinkSignal = 1;
 	
-		if((*localMilliSecondCounterPtr == blinkStartTimeStampMs) && (*localSecondCounterPtr == (blinkStartTimeStamp + 1)))
+		if(*localSecondCounterPtr == (blinkStartTimeStamp + 1))
 			ledBlinkSignalSlave = 1;
-		if((*localMilliSecondCounterPtr == (blinkStartTimeStampMs + 100)) && (*localSecondCounterPtr == (blinkStartTimeStamp + 1)))
+		if(*localSecondCounterPtr == (blinkStartTimeStamp + 2))
 			ledBlinkSignalSlave = 0;
 
 
 	}
 	else {
 		ledBlinkSignal = 0;
+		ledBlinkSignalSlave = 0; //Make sure that everything is 
 	}
 
 
