@@ -3,7 +3,7 @@
 
 static int motionSensorState = 0;
 static int debounceCounter = 0;
-static int numberOfSuccessfullDetections = 50;
+static int numberOfSuccessfullDetections = 200;
 static int debouncePeriodMilliSeconds = 10;
 static unsigned int *localMillisecondCounterPtr;
 
