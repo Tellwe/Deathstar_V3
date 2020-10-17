@@ -50,6 +50,23 @@ void main(){
 		duskGuardUpdate();
 		transceiverUpdate();
 
+//Function for being able to check the current configuration number using the onboard led and pushbutton
+//******************************************************************************************************
+		if(RB0 == 0)
+		{
+			for(int i = 0; i < pianoKeyNumber(); i++)
+			{
+				RB1 = 0;
+				__delay_ms(200);
+				RB1 = 1;
+				__delay_ms(200);
+			}
+		}
+		else{
+			RB1 = 1;
+		}
+//******************************************************************************************************
+
 		switch (customer.ledsConfig.lightTrigger){
 			case LIGHT_OFF:
 				break;
