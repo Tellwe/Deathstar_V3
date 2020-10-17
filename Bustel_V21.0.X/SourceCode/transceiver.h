@@ -57,6 +57,7 @@ char isChannelFound = 0;    //Used in the function FindChannel, if the PLL-lock 
 
 //Topics
 #define	BUSSIGNAL		2
+#define TESTSIGNAL		3
 
 //Values
 #define NODE1			1

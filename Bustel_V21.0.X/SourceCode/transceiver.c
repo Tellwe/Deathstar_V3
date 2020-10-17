@@ -165,6 +165,10 @@ void transceiverUpdate()
 			{
 				if((Data[2] == NODE1 && wirelessId == 1) || (Data[2] == NODE2 && wirelessId == 2) || (Data[2] == NODE3 && wirelessId == 3) || (Data[2] == NODE4 && wirelessId == 4))
 					messageReceivedState = 1;
+			}
+			if(Data[1] == TESTSIGNAL)
+			{
+				startTriggerReceivedState = 1;
 			} 
 			lastMessageReceivedTS = *localMilliSecondCounterPtr;							//TS to make sure that new message is not sent to soon after message received.
 			bOkToTransmitt = 0;

@@ -110,6 +110,15 @@ void main(){
 						sendData(BUSSIGNAL, customer.ledsConfig.transceiverNode);
 					}			
 				}
+				if(isTriggerConfirmationReceived() == 1)
+				{
+					RD5 = 1;
+					RD7 = 1;
+					__delay_ms(100);
+					RD5 = 0;
+					RD7 = 0;
+					__delay_ms(100);
+				}
 				break;
 			case BLINK_TRANSMITTER_PIR:
 				if(isMotionDetected() == 1 && isDataToSend() == 0)
