@@ -10,8 +10,8 @@ static unsigned int *localMilliSecondCounterPtr;
 static int ledBlinkOn = 0; //State variable
 
 //LED Blink output
-#define ledBlinkSignal				RD5
-#define ledBlinkSignalSlave			RD7
+#define ledBlinkSignal				RD5 //LIGHT A
+#define ledBlinkSignalSlave			RD7 //LIGHT C
 
 
 void ledBlinkConfig(unsigned int *milliSecondCounterPtr, unsigned int *secondCounterPtr, blinkLength_type blinkLength)
@@ -31,7 +31,7 @@ void ledBlinkConfig(unsigned int *milliSecondCounterPtr, unsigned int *secondCou
 			ledOnTimeInMinutes = 5;
 			break;
 		case BLINK_MINUTES10:
-			ledOnTimeInMinutes = 10;
+			ledOnTimeInMinutes = 20;
 			break;
 		default:
 			ledOnTimeInMinutes = 0;
@@ -61,7 +61,7 @@ int ledBlinkUpdate()
 	if(*localSecondCounterPtr == (blinkStartTimeStamp + ledOnTimeInMinutes * 60))
 		ledBlinkStop();
 
-	if(ledBlinkOn == 1 && *localMilliSecondCounterPtr >= 500){
+	if(ledBlinkOn == 1){
 		ledBlinkSignal = 1;
 		ledBlinkSignalSlave = 1;
 	}
