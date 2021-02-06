@@ -32,7 +32,7 @@ void ledBlinkConfig(unsigned int *milliSecondCounterPtr, unsigned int *secondCou
 			ledOnTimeInMinutes = 5;
 			break;
 		case BLINK_MINUTES10:
-			ledOnTimeInMinutes = 10;
+			ledOnTimeInMinutes = 20;
 			break;
 		default:
 			ledOnTimeInMinutes = 0;
